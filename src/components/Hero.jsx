@@ -142,7 +142,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-vertex-navy pt-20 text-center"
+      className="relative flex min-h-screen min-h-[100svh] flex-col items-center justify-center bg-vertex-navy pb-16 pt-24 text-center sm:pb-20 sm:pt-28"
     >
       <TriangleGridCanvas />
 
@@ -151,7 +151,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: 'easeOut' }}
-          className="mb-9"
+          className="mb-6 sm:mb-9"
         >
           <div className="animate-logo-glow">
             <VertexMark size={140} />
@@ -184,7 +184,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.1, ease: 'easeOut' }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-4"
+          className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:mt-10"
         >
           <ScrollLink
             to="about"
@@ -210,7 +210,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.4, ease: 'easeOut' }}
-          className="mt-14 flex w-full max-w-2xl items-stretch justify-center border-t border-white/10 pt-8"
+          className="mt-10 flex w-full max-w-2xl items-stretch justify-center border-t border-white/10 pt-6 sm:mt-14 sm:pt-8"
         >
           {t.hero.stats.map((stat, i) => (
             <div key={stat.label} className="flex items-stretch">
