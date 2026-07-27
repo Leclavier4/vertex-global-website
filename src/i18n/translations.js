@@ -2,7 +2,7 @@ export const translations = {
   fr: {
     meta: {
       description:
-        "Vertex Global — Groupe d'innovation technologique africain. Venture Studio basé à Cotonou, Bénin. EnergyTech, HealthTech, Cybersécurité, IA, TourismTech.",
+        "Vertex Global, groupe d'innovation technologique africain. Venture Studio basé à Cotonou, Bénin. EnergyTech, HealthTech, Cybersécurité, IA, TourismTech.",
     },
 
     nav: {
@@ -38,7 +38,7 @@ export const translations = {
       paragraphs: [
         "Nous construisons des systèmes. Là où une startup classique mise tout sur un seul produit, Vertex Global bâtit un portefeuille de ventures numériques capables de résoudre des problèmes réels à l'échelle africaine.",
         "Notre avantage compétitif n'est pas la technologie. C'est notre compréhension intime des défis locaux et notre capacité à y répondre avec méthode et discipline.",
-        "Ce modèle n'est pas une mode, c'est une nécessité de timing. L'Afrique de l'Ouest connaît aujourd'hui la convergence rare d'une adoption massive du mobile money, d'une jeunesse ultra-connectée et d'infrastructures encore à construire — ce qui laisse un espace immense pour des solutions pensées depuis le terrain plutôt qu'importées d'ailleurs. Cotonou est notre point de départ précisément parce que le Bénin concentre ces conditions à échelle humaine, assez petite pour valider vite, assez connectée à la sous-région pour scaler naturellement.",
+        "Ce modèle n'est pas une mode, c'est une nécessité de timing. L'Afrique de l'Ouest connaît aujourd'hui la convergence rare d'une adoption massive du mobile money, d'une jeunesse ultra-connectée et d'infrastructures encore à construire. Cela laisse un espace immense pour des solutions pensées depuis le terrain plutôt qu'importées d'ailleurs. Cotonou est notre point de départ précisément parce que le Bénin concentre ces conditions à échelle humaine, assez petite pour valider vite, assez connectée à la sous-région pour scaler naturellement.",
       ],
       cards: [
         {
@@ -100,7 +100,7 @@ export const translations = {
           status: 'En développement',
           problem: 'Vous êtes dans le noir à 22h. Votre compteur SBEE est tombé à zéro. Le bureau est fermé.',
           solution:
-            "Recharge de compteurs SBEE par Mobile Money — disponible 24h/24, depuis n'importe quel téléphone.",
+            "Recharge de compteurs SBEE par Mobile Money, disponible 24h/24, depuis n'importe quel téléphone.",
         },
         {
           name: 'FastGarage',
@@ -121,7 +121,7 @@ export const translations = {
       groupCard: {
         badge: 'Niveau 1',
         title: 'Partenaire du Groupe',
-        desc: "Vous rejoignez le groupe dans sa globalité — vision stratégique, gouvernance et accès à l'ensemble du portefeuille de ventures.",
+        desc: "Vous rejoignez le groupe dans sa globalité : vision stratégique, gouvernance et accès à l'ensemble du portefeuille de ventures.",
         points: [
           "Accès à l'ensemble du portefeuille",
           'Enveloppe interne de 60% des revenus',
@@ -195,7 +195,7 @@ export const translations = {
   en: {
     meta: {
       description:
-        "Vertex Global — African technology innovation group. Venture studio based in Cotonou, Bénin. EnergyTech, HealthTech, Cybersecurity, AI, TourismTech.",
+        'Vertex Global, African technology innovation group. Venture studio based in Cotonou, Bénin. EnergyTech, HealthTech, Cybersecurity, AI, TourismTech.',
     },
 
     nav: {
@@ -231,12 +231,12 @@ export const translations = {
       paragraphs: [
         'We build systems. Where a classic startup bets everything on a single product, Vertex Global builds a portfolio of digital ventures designed to solve real problems at African scale.',
         "Our edge isn't technology. It's an intimate understanding of local challenges, and the discipline to answer them with method rather than guesswork.",
-        "This model isn't a trend, it's a matter of timing. West Africa is living through a rare convergence — mass mobile money adoption, a hyper-connected youth, and infrastructure still being built — leaving enormous room for solutions designed from the ground up rather than imported from elsewhere. Cotonou is our starting point precisely because Bénin holds these conditions at human scale: small enough to validate fast, connected enough to the region to scale naturally.",
+        "This model isn't a trend, it's a matter of timing. West Africa is living through a rare convergence: mass mobile money adoption, a hyper-connected youth, and infrastructure still being built. That leaves enormous room for solutions designed from the ground up rather than imported from elsewhere. Cotonou is our starting point precisely because Bénin holds these conditions at human scale: small enough to validate fast, connected enough to the region to scale naturally.",
       ],
       cards: [
         {
           step: '01 / Identify',
-          text: 'We start from a real problem — observed, documented, on the ground. Never from a technology looking for a use case.',
+          text: 'We start from a real problem: observed, documented, on the ground. Never from a technology looking for a use case.',
         },
         {
           step: '02 / Build',
@@ -292,7 +292,7 @@ export const translations = {
           pole: 'EnergyTech',
           status: 'In Development',
           problem: "You're in the dark at 10pm. Your SBEE meter just hit zero. The office is closed.",
-          solution: 'Top up SBEE meters via Mobile Money — available 24/7, from any phone.',
+          solution: 'Top up SBEE meters via Mobile Money, available 24/7, from any phone.',
         },
         {
           name: 'FastGarage',
@@ -313,7 +313,7 @@ export const translations = {
       groupCard: {
         badge: 'Level 1',
         title: 'Group Partner',
-        desc: 'You join the group as a whole — strategic vision, governance, and access to the entire venture portfolio.',
+        desc: 'You join the group as a whole: strategic vision, governance, and access to the entire venture portfolio.',
         points: [
           'Access to the entire portfolio',
           '60% internal revenue share',
@@ -334,7 +334,7 @@ export const translations = {
       },
       form: {
         title: 'Have a question? Write to us.',
-        subtitle: "Tell us about your project or interest — we'll get back to you quickly.",
+        subtitle: "Tell us about your project or interest. We'll get back to you quickly.",
         nameLabel: 'Full name',
         namePlaceholder: 'Your full name',
         emailLabel: 'Email',

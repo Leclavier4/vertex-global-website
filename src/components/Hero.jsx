@@ -5,13 +5,13 @@ import { ChevronDown } from 'lucide-react'
 import { VertexMark } from './VertexMark'
 import { useLanguage } from '../i18n/LanguageContext'
 
-/* The tagline is intentionally bilingual by brand design — it stays in
+/* The tagline is intentionally bilingual by brand design: it stays in
    English regardless of the selected site language. */
 const HEADLINE = "Building Africa's next innovation layer."
 
 /**
  * Slow-drifting triangular grid, drawn on canvas at very low opacity.
- * Pure decoration — subtle depth behind the hero content.
+ * Pure decoration, subtle depth behind the hero content.
  */
 function TriangleGridCanvas() {
   const canvasRef = useRef(null)
@@ -115,9 +115,11 @@ function StatCounter({ target, label, delay }) {
   }, [inView, target, delay])
 
   return (
-    <div ref={ref} className="flex-1 px-6 text-center sm:px-8">
+    <div ref={ref} className="min-w-[104px] flex-1 px-4 text-center sm:min-w-[150px] sm:px-8">
       <div className="font-serif text-3xl font-bold text-vertex-gold-light sm:text-4xl">{count}</div>
-      <div className="mt-1.5 text-[11px] uppercase tracking-[0.1em] text-white/70">{label}</div>
+      <div className="mt-2.5 text-[10.5px] uppercase leading-snug tracking-[0.06em] text-white/70 sm:text-[11px] sm:tracking-[0.1em]">
+        {label}
+      </div>
     </div>
   )
 }
@@ -140,7 +142,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-vertex-navy pt-20 text-center"
+      className="relative flex min-h-screen min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-vertex-navy pt-20 text-center"
     >
       <TriangleGridCanvas />
 
@@ -208,10 +210,18 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.4, ease: 'easeOut' }}
-          className="mt-14 flex w-full max-w-xl items-stretch justify-center divide-x divide-vertex-gold/30 border-t border-white/10 pt-8"
+          className="mt-14 flex w-full max-w-2xl items-stretch justify-center border-t border-white/10 pt-8"
         >
           {t.hero.stats.map((stat, i) => (
-            <StatCounter key={stat.label} target={stat.target} label={stat.label} delay={i * 0.15} />
+            <div key={stat.label} className="flex items-stretch">
+              {i > 0 && (
+                <span
+                  className="mx-3 hidden w-px shrink-0 self-stretch bg-gradient-to-b from-transparent via-vertex-gold/40 to-transparent sm:mx-5 sm:block"
+                  aria-hidden="true"
+                />
+              )}
+              <StatCounter target={stat.target} label={stat.label} delay={i * 0.15} />
+            </div>
           ))}
         </motion.div>
       </div>

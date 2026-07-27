@@ -3,7 +3,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
 
 /* ---------------------------------------------------------------------
-   Custom inline SVG icons — one per pole, drawn in the brand's minimal
+   Custom inline SVG icons, one per pole, drawn in the brand's minimal
    geometric line-art style (24x24, currentColor stroke).
    --------------------------------------------------------------------- */
 const iconProps = {
@@ -123,7 +123,7 @@ export default function Poles() {
                   aria-hidden="true"
                 />
 
-                <span className="absolute inset-x-0 bottom-0 h-0.5 w-0 bg-vertex-gold transition-all duration-300 group-hover:w-full" />
+                <span className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-vertex-gold transition-transform duration-300 ease-out group-hover:scale-x-100" />
               </motion.article>
             )
           })}

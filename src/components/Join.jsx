@@ -21,7 +21,7 @@ function getErrors(values, errorMessages) {
 }
 
 function buildMailtoUrl({ name, email, type, message }, formT) {
-  const subject = `${formT.mailSubjectPrefix} — ${type}`
+  const subject = `${formT.mailSubjectPrefix} - ${type}`
   const { name: nameLabel, email: emailLabel, type: typeLabel, message: messageLabel } = formT.mailFieldLabels
   const body = `${nameLabel}: ${name}\n${emailLabel}: ${email}\n${typeLabel}: ${type}\n${messageLabel}: ${message}`
   return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
@@ -91,7 +91,7 @@ function ContactForm() {
   }
 
   const fieldClass = (field) =>
-    `w-full rounded-lg border-2 bg-white/[0.06] px-4 py-3 text-white placeholder-white/40 transition-colors duration-200 focus:outline-none ${
+    `w-full rounded-lg border-2 bg-white/[0.06] px-4 py-3 text-base text-white placeholder-white/40 transition-colors duration-200 focus:outline-none ${
       showError(field)
         ? 'border-red-400 focus:border-red-400'
         : 'border-white/15 focus:border-vertex-gold-light'

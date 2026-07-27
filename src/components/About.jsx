@@ -51,7 +51,7 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Right column — process cards */}
+        {/* Right column: process cards */}
         <div className="flex flex-col gap-5">
           {t.about.cards.map(({ step, text }, i) => {
             const Icon = ICONS[i]

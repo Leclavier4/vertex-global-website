@@ -90,10 +90,10 @@ export default function Navbar() {
               smooth
               duration={500}
               offset={-80}
-              className={`relative cursor-pointer pb-1 font-sans text-[13px] transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-vertex-gold-light after:transition-all after:duration-200 ${
+              className={`relative cursor-pointer pb-1 font-sans text-[13px] transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-left after:bg-vertex-gold-light after:transition-transform after:duration-200 after:ease-out ${
                 active === item.to
-                  ? 'text-vertex-gold-light after:w-full'
-                  : 'text-vertex-text-muted after:w-0 hover:text-vertex-gold-light hover:after:w-full'
+                  ? 'text-vertex-gold-light after:scale-x-100'
+                  : 'text-vertex-text-muted after:scale-x-0 hover:text-vertex-gold-light hover:after:scale-x-100'
               }`}
             >
               {item.label}

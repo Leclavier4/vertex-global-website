@@ -1,7 +1,7 @@
 import { useId } from 'react'
 
 /**
- * VertexMark — the Vertex Global logo mark.
+ * VertexMark: the Vertex Global logo mark.
  * A rounded square (navy → blue gradient) containing a white-stroked
  * equilateral triangle, a gold vertical axis from apex to base, a gold
  * filled circle at the apex, and two soft white circles at the base corners.
@@ -47,7 +47,7 @@ export function VertexMark({ size = 40, className = '' }) {
 }
 
 /**
- * VertexWordmark — mark + "VERTEX | GLOBAL" lockup.
+ * VertexWordmark: mark + "VERTEX | GLOBAL" lockup.
  * theme="light" (default) renders VERTEX in white for dark backgrounds.
  * theme="dark" renders VERTEX in navy for light backgrounds.
  */
