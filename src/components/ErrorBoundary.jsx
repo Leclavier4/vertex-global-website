@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import { translations } from '../i18n/translations'
 
 export default class ErrorBoundary extends Component {
   constructor(props) {
@@ -12,9 +13,11 @@ export default class ErrorBoundary extends Component {
 
   render() {
     if (this.state.hasError) {
+      const lang = typeof window !== 'undefined' && window.localStorage.getItem('vertex-lang') === 'en' ? 'en' : 'fr'
+
       return (
         <div className="flex min-h-[160px] items-center justify-center bg-vertex-off-white px-6 text-center text-sm text-vertex-text-muted">
-          Une erreur est survenue lors de l&apos;affichage de cette section.
+          {translations[lang].errorBoundary}
         </div>
       )
     }

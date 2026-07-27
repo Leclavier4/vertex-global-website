@@ -1,18 +1,37 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Check, Loader2, Mail as MailIcon, MessageCircle } from 'lucide-react'
+import { useLanguage } from '../i18n/LanguageContext'
 
-const GROUP_POINTS = [
-  'Accès à l’ensemble du portefeuille',
-  'Enveloppe interne de 60% des revenus',
-  'Participation aux décisions stratégiques',
-]
+const WHATSAPP_NUMBER = '22901473316'
+const CONTACT_EMAIL = 'vertexglos@gmail.com'
 
-const PROJECT_POINTS = [
-  'Investisseur financier ou contributeur',
-  'Enveloppe projet de 40% des revenus',
-  'Part progressive selon ancienneté',
-]
+const initialValues = { name: '', email: '', type: '', message: '', channel: '' }
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+function getErrors(values, errorMessages) {
+  return {
+    name: values.name.trim() === '' ? errorMessages.name : '',
+    email: !EMAIL_RE.test(values.email.trim()) ? errorMessages.email : '',
+    type: values.type === '' ? errorMessages.type : '',
+    message: values.message.trim() === '' ? errorMessages.message : '',
+    channel: values.channel === '' ? errorMessages.channel : '',
+  }
+}
+
+function buildMailtoUrl({ name, email, type, message }, formT) {
+  const subject = `${formT.mailSubjectPrefix} — ${type}`
+  const { name: nameLabel, email: emailLabel, type: typeLabel, message: messageLabel } = formT.mailFieldLabels
+  const body = `${nameLabel}: ${name}\n${emailLabel}: ${email}\n${typeLabel}: ${type}\n${messageLabel}: ${message}`
+  return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+}
+
+function buildWhatsappUrl({ name, email, type, message }, formT) {
+  const { name: nameLabel, email: emailLabel, type: typeLabel, message: messageLabel } = formT.waFieldLabels
+  const text = `${formT.waGreeting}\n\n${nameLabel}: ${name}\n${emailLabel}: ${email}\n${typeLabel}: ${type}\n\n${messageLabel}: ${message}`
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
+}
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -23,52 +42,17 @@ const cardVariants = {
   }),
 }
 
-const COLLABORATION_TYPES = [
-  'Partenaire Interne',
-  'Investisseur Financier',
-  'Contributeur Opérationnel',
-  'Autre',
-]
-
-const WHATSAPP_NUMBER = '22901473316'
-const CONTACT_EMAIL = 'vertexglos@gmail.com'
-
-const EMAIL_SUCCESS_MSG = 'Votre email a été préparé. Envoyez-le depuis votre messagerie pour finaliser.'
-const WHATSAPP_SUCCESS_MSG = 'WhatsApp ouvert. Envoyez le message pour finaliser votre demande.'
-
-const initialValues = { name: '', email: '', type: '', message: '', channel: '' }
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-function getErrors(values) {
-  return {
-    name: values.name.trim() === '' ? 'Merci de renseigner votre nom.' : '',
-    email: !EMAIL_RE.test(values.email.trim()) ? 'Merci de renseigner une adresse email valide.' : '',
-    type: values.type === '' ? 'Merci de sélectionner un type de collaboration.' : '',
-    message: values.message.trim() === '' ? 'Merci de rédiger un message.' : '',
-    channel: values.channel === '' ? 'Merci de choisir un canal de contact.' : '',
-  }
-}
-
-function buildMailtoUrl({ name, email, type, message }) {
-  const subject = `Collaboration Vertex Global — ${type}`
-  const body = `Nom: ${name}\nEmail: ${email}\nType: ${type}\nMessage: ${message}`
-  return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-}
-
-function buildWhatsappUrl({ name, email, type, message }) {
-  const text = `Bonjour Vertex Global 👋\n\nNom: ${name}\nEmail: ${email}\nType de collaboration: ${type}\n\nMessage: ${message}`
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
-}
-
 function ContactForm() {
+  const { t } = useLanguage()
+  const formT = t.join.form
+
   const [values, setValues] = useState(initialValues)
   const [touched, setTouched] = useState({})
   const [submitAttempted, setSubmitAttempted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [bannerMessage, setBannerMessage] = useState('')
 
-  const errors = getErrors(values)
+  const errors = getErrors(values, formT.errors)
   const isValid = Object.values(errors).every((msg) => msg === '')
   const showError = (field) => (touched[field] || submitAttempted) && errors[field]
 
@@ -90,11 +74,11 @@ function ContactForm() {
 
     window.setTimeout(() => {
       if (values.channel === 'whatsapp') {
-        window.open(buildWhatsappUrl(values), '_blank', 'noopener,noreferrer')
-        setBannerMessage(WHATSAPP_SUCCESS_MSG)
+        window.open(buildWhatsappUrl(values, formT), '_blank', 'noopener,noreferrer')
+        setBannerMessage(formT.successWhatsapp)
       } else {
-        window.location.href = buildMailtoUrl(values)
-        setBannerMessage(EMAIL_SUCCESS_MSG)
+        window.location.href = buildMailtoUrl(values, formT)
+        setBannerMessage(formT.successEmail)
       }
 
       setLoading(false)
@@ -113,7 +97,7 @@ function ContactForm() {
         : 'border-white/15 focus:border-vertex-gold-light'
     }`
 
-  const submitLabel = values.channel === 'whatsapp' ? 'Envoyer via WhatsApp' : 'Envoyer via Email'
+  const submitLabel = values.channel === 'whatsapp' ? formT.submitWhatsapp : formT.submitEmail
 
   return (
     <motion.div
@@ -124,10 +108,8 @@ function ContactForm() {
       className="mx-auto mt-20 max-w-2xl rounded-2xl bg-vertex-blue-deep p-8 sm:p-11"
       id="contact"
     >
-      <h3 className="font-serif text-2xl font-bold text-white">Une question&nbsp;? Écrivez-nous.</h3>
-      <p className="mt-2 text-[15px] text-[#B8C4D4]">
-        Décrivez votre projet ou votre intérêt, nous revenons vers vous rapidement.
-      </p>
+      <h3 className="font-serif text-2xl font-bold text-white">{formT.title}</h3>
+      <p className="mt-2 text-[15px] text-[#B8C4D4]">{formT.subtitle}</p>
 
       <div className="mt-5" aria-live="polite">
         <AnimatePresence>
@@ -152,7 +134,7 @@ function ContactForm() {
       <form onSubmit={handleSubmit} noValidate className="mt-8 space-y-5">
         <div>
           <label htmlFor="name" className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#D4D4D4]">
-            Nom complet
+            {formT.nameLabel}
           </label>
           <input
             id="name"
@@ -161,7 +143,7 @@ function ContactForm() {
             value={values.name}
             onChange={handleChange}
             onBlur={handleBlur}
-            placeholder="Votre nom complet"
+            placeholder={formT.namePlaceholder}
             className={fieldClass('name')}
           />
           {showError('name') && <p className="mt-1.5 text-xs text-red-300">{errors.name}</p>}
@@ -169,7 +151,7 @@ function ContactForm() {
 
         <div>
           <label htmlFor="email" className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#D4D4D4]">
-            Email
+            {formT.emailLabel}
           </label>
           <input
             id="email"
@@ -178,7 +160,7 @@ function ContactForm() {
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
-            placeholder="vous@exemple.com"
+            placeholder={formT.emailPlaceholder}
             className={fieldClass('email')}
           />
           {showError('email') && <p className="mt-1.5 text-xs text-red-300">{errors.email}</p>}
@@ -186,7 +168,7 @@ function ContactForm() {
 
         <div>
           <label htmlFor="type" className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#D4D4D4]">
-            Type de collaboration
+            {formT.typeLabel}
           </label>
           <select
             id="type"
@@ -197,9 +179,9 @@ function ContactForm() {
             className={fieldClass('type')}
           >
             <option value="" disabled className="text-vertex-text-muted">
-              Choisissez une option
+              {formT.typePlaceholder}
             </option>
-            {COLLABORATION_TYPES.map((type) => (
+            {formT.types.map((type) => (
               <option key={type} value={type} className="bg-vertex-navy text-white">
                 {type}
               </option>
@@ -210,7 +192,7 @@ function ContactForm() {
 
         <div>
           <label htmlFor="message" className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#D4D4D4]">
-            Message
+            {formT.messageLabel}
           </label>
           <textarea
             id="message"
@@ -219,7 +201,7 @@ function ContactForm() {
             value={values.message}
             onChange={handleChange}
             onBlur={handleBlur}
-            placeholder="Parlez-nous de votre projet..."
+            placeholder={formT.messagePlaceholder}
             className={`${fieldClass('message')} resize-y`}
           />
           {showError('message') && <p className="mt-1.5 text-xs text-red-300">{errors.message}</p>}
@@ -227,7 +209,7 @@ function ContactForm() {
 
         <fieldset>
           <legend className="mb-2.5 text-xs font-bold uppercase tracking-wide text-[#D4D4D4]">
-            Canal de contact préféré
+            {formT.channelLabel}
           </legend>
           <div className="flex flex-wrap gap-5">
             <label className="flex cursor-pointer items-center gap-2.5 text-[14.5px] text-white/90">
@@ -241,7 +223,7 @@ function ContactForm() {
                 className="h-4 w-4 accent-vertex-gold"
               />
               <MailIcon className="h-4 w-4 text-vertex-gold-light" />
-              Email
+              {formT.channelEmail}
             </label>
             <label className="flex cursor-pointer items-center gap-2.5 text-[14.5px] text-white/90">
               <input
@@ -254,7 +236,7 @@ function ContactForm() {
                 className="h-4 w-4 accent-vertex-gold"
               />
               <MessageCircle className="h-4 w-4 text-vertex-gold-light" />
-              WhatsApp
+              {formT.channelWhatsapp}
             </label>
           </div>
           {showError('channel') && <p className="mt-1.5 text-xs text-red-300">{errors.channel}</p>}
@@ -266,7 +248,7 @@ function ContactForm() {
           className="flex w-full items-center justify-center gap-2 rounded-lg bg-vertex-gold py-4 font-semibold text-vertex-navy transition-all duration-200 hover:scale-[1.01] hover:bg-vertex-gold-light disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
         >
           {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-          {loading ? 'Préparation…' : submitLabel}
+          {loading ? formT.submitLoading : submitLabel}
         </button>
       </form>
     </motion.div>
@@ -274,20 +256,18 @@ function ContactForm() {
 }
 
 export default function Join() {
+  const { t } = useLanguage()
+
   return (
     <section id="join" className="bg-vertex-navy py-20 md:py-28 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-16">
         <div className="mx-auto mb-16 max-w-2xl text-center">
-          <h2 className="font-serif text-[28px] font-bold text-white md:text-[42px]">
-            Rejoindre Vertex Global
-          </h2>
-          <p className="mt-4 text-[17px] text-[#B8C4D4]">
-            Nous cherchons des personnes qui partagent une vision long terme.
-          </p>
+          <h2 className="font-serif text-[28px] font-bold text-white md:text-[42px]">{t.join.title}</h2>
+          <p className="mt-4 text-[17px] text-[#B8C4D4]">{t.join.subtitle}</p>
         </div>
 
         <div className="grid grid-cols-1 gap-7 lg:grid-cols-2">
-          {/* Partenaire Interne */}
+          {/* Group Partner */}
           <motion.article
             custom={0}
             variants={cardVariants}
@@ -297,18 +277,15 @@ export default function Join() {
             className="flex flex-col rounded-2xl border-t-[3px] border-vertex-gold bg-vertex-blue-deep p-9 transition-transform duration-300 hover:-translate-y-1.5"
           >
             <span className="w-fit rounded-full bg-vertex-gold px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wide text-vertex-navy">
-              Niveau 1
+              {t.join.groupCard.badge}
             </span>
             <h3 className="mt-5 font-serif text-2xl font-bold text-white sm:text-[26px]">
-              Partenaire du Groupe
+              {t.join.groupCard.title}
             </h3>
-            <p className="mt-3 text-[15px] text-white/80">
-              Vous rejoignez le groupe dans sa globalité — vision stratégique, gouvernance et accès à
-              l&apos;ensemble du portefeuille de ventures.
-            </p>
+            <p className="mt-3 text-[15px] text-white/80">{t.join.groupCard.desc}</p>
 
             <ul className="mt-6 flex-1 space-y-3">
-              {GROUP_POINTS.map((point) => (
+              {t.join.groupCard.points.map((point) => (
                 <li key={point} className="flex items-start gap-2.5 text-[14.5px] text-white/90">
                   <Check className="mt-0.5 h-[18px] w-[18px] shrink-0 text-vertex-gold-light" />
                   {point}
@@ -320,11 +297,11 @@ export default function Join() {
               href="#contact"
               className="mt-8 w-fit text-sm font-semibold text-vertex-gold-light underline decoration-transparent underline-offset-4 transition-all duration-200 hover:decoration-vertex-gold-light"
             >
-              En savoir plus →
+              {t.join.groupCard.cta}
             </a>
           </motion.article>
 
-          {/* Partenaire de Projet */}
+          {/* Project Partner */}
           <motion.article
             custom={1}
             variants={cardVariants}
@@ -334,18 +311,15 @@ export default function Join() {
             className="flex flex-col rounded-2xl border-t-[3px] border-white bg-vertex-blue p-9 transition-transform duration-300 hover:-translate-y-1.5"
           >
             <span className="w-fit rounded-full bg-white px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wide text-vertex-blue">
-              Niveau 2
+              {t.join.projectCard.badge}
             </span>
             <h3 className="mt-5 font-serif text-2xl font-bold text-white sm:text-[26px]">
-              Partenaire de Projet
+              {t.join.projectCard.title}
             </h3>
-            <p className="mt-3 text-[15px] text-white/85">
-              Vous rejoignez une venture spécifique, en tant qu&apos;investisseur financier ou
-              contributeur opérationnel, avec un retour aligné sur sa performance.
-            </p>
+            <p className="mt-3 text-[15px] text-white/85">{t.join.projectCard.desc}</p>
 
             <ul className="mt-6 flex-1 space-y-3">
-              {PROJECT_POINTS.map((point) => (
+              {t.join.projectCard.points.map((point) => (
                 <li key={point} className="flex items-start gap-2.5 text-[14.5px] text-white/95">
                   <Check className="mt-0.5 h-[18px] w-[18px] shrink-0 text-white" />
                   {point}
@@ -357,7 +331,7 @@ export default function Join() {
               href="#contact"
               className="mt-8 w-fit text-sm font-semibold text-white underline decoration-transparent underline-offset-4 transition-all duration-200 hover:decoration-white"
             >
-              En savoir plus →
+              {t.join.projectCard.cta}
             </a>
           </motion.article>
         </div>

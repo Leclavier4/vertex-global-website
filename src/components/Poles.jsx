@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
+import { useLanguage } from '../i18n/LanguageContext'
 
 /* ---------------------------------------------------------------------
    Custom inline SVG icons — one per pole, drawn in the brand's minimal
@@ -74,38 +75,7 @@ function IconTelescope(props) {
   )
 }
 
-const POLES = [
-  {
-    name: 'EnergyTech',
-    icon: IconBolt,
-    description: "Gestion intelligente de l'énergie, recharge prépayée, services aux opérateurs et usagers.",
-  },
-  {
-    name: 'HealthTech',
-    icon: IconHeartPulse,
-    description: 'Accès aux soins, dossiers médicaux numériques, systèmes d’urgence et télémédecine.',
-  },
-  {
-    name: 'Cybersécurité',
-    icon: IconShieldCheck,
-    description: 'Audits, sensibilisation, protection et résilience numérique pour entreprises et institutions.',
-  },
-  {
-    name: 'Intelligence Artificielle',
-    icon: IconCircuit,
-    description: "Automatisation intelligente et systèmes d'aide à la décision adaptés au contexte africain.",
-  },
-  {
-    name: 'TourismTech',
-    icon: IconGlobePin,
-    description: 'Plateformes numériques de valorisation des destinations et de l’économie touristique africaine.',
-  },
-  {
-    name: 'Ventures Émergentes',
-    icon: IconTelescope,
-    description: "Nouvelles opportunités identifiées par la recherche et l'observation continue du marché.",
-  },
-]
+const ICONS = [IconBolt, IconHeartPulse, IconShieldCheck, IconCircuit, IconGlobePin, IconTelescope]
 
 const cardVariants = {
   hidden: { opacity: 0, scale: 0.9 },
@@ -117,41 +87,46 @@ const cardVariants = {
 }
 
 export default function Poles() {
+  const { t } = useLanguage()
+
   return (
     <section id="poles" className="bg-vertex-navy py-20 md:py-28 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-16">
         <div className="mx-auto mb-16 max-w-2xl text-center">
           <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-vertex-gold">
-            Nos pôles d&apos;activité
+            {t.poles.label}
           </span>
           <h2 className="mt-4 font-serif text-[28px] font-bold text-white md:text-[48px]">
-            6 domaines. <span className="text-vertex-gold">1 vision.</span>
+            {t.poles.titleWhite} <span className="text-vertex-gold">{t.poles.titleGold}</span>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {POLES.map(({ name, icon: Icon, description }, i) => (
-            <motion.article
-              key={name}
-              custom={i}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-80px' }}
-              className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-vertex-blue-deep p-8 transition-all duration-300 hover:-translate-y-2 hover:bg-vertex-blue-light/20"
-            >
-              <Icon className="h-10 w-10 text-vertex-gold-light" />
-              <h3 className="mt-6 font-serif text-xl font-bold text-white">{name}</h3>
-              <p className="mt-2.5 text-sm leading-[1.6] text-gray-400">{description}</p>
+          {t.poles.items.map(({ name, description }, i) => {
+            const Icon = ICONS[i]
+            return (
+              <motion.article
+                key={name}
+                custom={i}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-80px' }}
+                className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-vertex-blue-deep p-8 transition-all duration-300 hover:-translate-y-2 hover:bg-vertex-blue-light/20"
+              >
+                <Icon className="h-10 w-10 text-vertex-gold-light" />
+                <h3 className="mt-6 font-serif text-xl font-bold text-white">{name}</h3>
+                <p className="mt-2.5 text-sm leading-[1.6] text-gray-400">{description}</p>
 
-              <ArrowUpRight
-                className="absolute bottom-6 right-6 h-5 w-5 text-vertex-gold-light opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                aria-hidden="true"
-              />
+                <ArrowUpRight
+                  className="absolute bottom-6 right-6 h-5 w-5 text-vertex-gold-light opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  aria-hidden="true"
+                />
 
-              <span className="absolute inset-x-0 bottom-0 h-0.5 w-0 bg-vertex-gold transition-all duration-300 group-hover:w-full" />
-            </motion.article>
-          ))}
+                <span className="absolute inset-x-0 bottom-0 h-0.5 w-0 bg-vertex-gold transition-all duration-300 group-hover:w-full" />
+              </motion.article>
+            )
+          })}
         </div>
       </div>
     </section>

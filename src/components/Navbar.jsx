@@ -3,15 +3,7 @@ import { Link as ScrollLink } from 'react-scroll'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { VertexWordmark } from './VertexMark'
-
-const NAV_ITEMS = [
-  { label: 'Accueil', to: 'hero' },
-  { label: 'À propos', to: 'about' },
-  { label: 'Pôles', to: 'poles' },
-  { label: 'Ventures', to: 'ventures' },
-  { label: 'Rejoindre', to: 'join' },
-  { label: 'Contact', to: 'contact' },
-]
+import { useLanguage } from '../i18n/LanguageContext'
 
 const SECTION_IDS = ['hero', 'about', 'poles', 'ventures', 'join']
 
@@ -50,9 +42,19 @@ const mobileLinkVariants = {
 }
 
 export default function Navbar() {
+  const { t } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const active = useActiveSection(SECTION_IDS)
+
+  const navItems = [
+    { label: t.nav.accueil, to: 'hero' },
+    { label: t.nav.about, to: 'about' },
+    { label: t.nav.poles, to: 'poles' },
+    { label: t.nav.ventures, to: 'ventures' },
+    { label: t.nav.join, to: 'join' },
+    { label: t.nav.contact, to: 'contact' },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80)
@@ -80,8 +82,8 @@ export default function Navbar() {
         </ScrollLink>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Navigation principale">
-          {NAV_ITEMS.map((item) => (
+        <nav className="hidden items-center gap-8 md:flex" aria-label={t.nav.ariaMain}>
+          {navItems.map((item) => (
             <ScrollLink
               key={item.to}
               to={item.to}
@@ -105,7 +107,7 @@ export default function Navbar() {
             offset={-80}
             className="cursor-pointer rounded-lg border border-vertex-gold px-5 py-2.5 font-sans text-[13px] font-semibold text-vertex-gold-light transition-all duration-200 hover:bg-vertex-gold hover:text-vertex-navy"
           >
-            Rejoindre l&apos;aventure
+            {t.nav.cta}
           </ScrollLink>
         </nav>
 
@@ -113,7 +115,7 @@ export default function Navbar() {
         <button
           type="button"
           className="z-50 text-white md:hidden"
-          aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((v) => !v)}
         >
@@ -131,7 +133,7 @@ export default function Navbar() {
             animate="visible"
             exit="exit"
           >
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <motion.div key={item.to} variants={mobileLinkVariants}>
                 <ScrollLink
                   to={item.to}
@@ -156,7 +158,7 @@ export default function Navbar() {
                 onClick={closeMenu}
                 className="cursor-pointer rounded-lg border border-vertex-gold px-6 py-3 font-sans text-sm font-semibold text-vertex-gold-light"
               >
-                Rejoindre l&apos;aventure
+                {t.nav.cta}
               </ScrollLink>
             </motion.div>
           </motion.div>

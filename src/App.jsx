@@ -6,6 +6,7 @@ import Ventures from './components/Ventures'
 import Join from './components/Join'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import LanguageSwitcher from './components/LanguageSwitcher'
 import ErrorBoundary from './components/ErrorBoundary'
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Footer />
       </ErrorBoundary>
       <ScrollToTop />
+      <LanguageSwitcher />
     </>
   )
 }

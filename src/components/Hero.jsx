@@ -3,14 +3,11 @@ import { motion, useInView, animate } from 'framer-motion'
 import { Link as ScrollLink } from 'react-scroll'
 import { ChevronDown } from 'lucide-react'
 import { VertexMark } from './VertexMark'
+import { useLanguage } from '../i18n/LanguageContext'
 
+/* The tagline is intentionally bilingual by brand design — it stays in
+   English regardless of the selected site language. */
 const HEADLINE = "Building Africa's next innovation layer."
-
-const STATS = [
-  { target: 6, label: "Pôles d'innovation" },
-  { target: 2, label: 'Ventures actives' },
-  { target: 10, label: 'Principes fondateurs' },
-]
 
 /**
  * Slow-drifting triangular grid, drawn on canvas at very low opacity.
@@ -138,6 +135,8 @@ const wordVariant = {
 }
 
 export default function Hero() {
+  const { t } = useLanguage()
+
   return (
     <section
       id="hero"
@@ -176,8 +175,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.8, ease: 'easeOut' }}
           className="mt-6 max-w-[640px] text-[18px] text-[#D4D4D4]"
         >
-          Vertex Global est un Venture Studio africain. Nous identifions de vrais problèmes, construisons
-          des solutions numériques adaptées, et les déployons à l&apos;échelle du continent.
+          {t.hero.subheadline}
         </motion.p>
 
         <motion.div
@@ -193,7 +191,7 @@ export default function Hero() {
             offset={-80}
             className="cursor-pointer rounded-lg bg-vertex-blue px-8 py-4 font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:bg-vertex-blue-light"
           >
-            Découvrir notre modèle
+            {t.hero.ctaPrimary}
           </ScrollLink>
           <ScrollLink
             to="join"
@@ -202,7 +200,7 @@ export default function Hero() {
             offset={-80}
             className="cursor-pointer rounded-lg border border-vertex-gold px-8 py-4 font-medium text-vertex-gold-light transition-all duration-200 hover:scale-[1.02] hover:bg-vertex-gold hover:text-vertex-navy"
           >
-            Rejoindre l&apos;aventure
+            {t.hero.ctaSecondary}
           </ScrollLink>
         </motion.div>
 
@@ -212,7 +210,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 1.4, ease: 'easeOut' }}
           className="mt-14 flex w-full max-w-xl items-stretch justify-center divide-x divide-vertex-gold/30 border-t border-white/10 pt-8"
         >
-          {STATS.map((stat, i) => (
+          {t.hero.stats.map((stat, i) => (
             <StatCounter key={stat.label} target={stat.target} label={stat.label} delay={i * 0.15} />
           ))}
         </motion.div>
@@ -223,7 +221,7 @@ export default function Hero() {
         smooth
         duration={500}
         offset={-80}
-        aria-label="Défiler vers la section suivante"
+        aria-label={t.hero.scrollAria}
         className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 cursor-pointer text-vertex-gold-light"
       >
         <motion.div
