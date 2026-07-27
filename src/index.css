@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #F8FAFC;
+  color: #111827;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #B7862C;
+  color: #FFFFFF;
+}
+
+/* small-caps helper used for labels */
+.small-caps {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* focus ring, consistent with brand gold */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #D4A84B;
+  outline-offset: 3px;
+}
+
+/* hero logo — continuous breathing glow, isolated from Framer's entrance transform */
+@keyframes logoGlow {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px rgba(183, 134, 44, 0.35));
+  }
+  50% {
+    transform: scale(1.02);
+    filter: drop-shadow(0 0 30px rgba(212, 168, 75, 0.6));
+  }
+}
+.animate-logo-glow {
+  animation: logoGlow 3.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
