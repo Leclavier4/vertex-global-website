@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Link as ScrollLink } from 'react-scroll'
 import { ArrowRight } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
@@ -11,10 +12,10 @@ const VENTURES_META = [
     tags: ['#EnergyTech', '#MobileMoney', '#Bénin'],
   },
   {
-    accentBorder: 'border-l-[#F59E0B]',
-    statusDot: 'bg-[#F59E0B]',
-    statusText: 'text-amber-700',
-    tags: ['#MobilityTech', '#Automotive', '#Bénin'],
+    accentBorder: 'border-l-vertex-orange',
+    statusDot: 'bg-vertex-success',
+    statusText: 'text-green-700',
+    tags: ['#MobilityTech', '#Automotive', '#Bénin', '#En production'],
   },
 ]
 
@@ -29,6 +30,7 @@ const cardVariants = {
 
 export default function Ventures() {
   const { t } = useLanguage()
+  const [hoveredTooltip, setHoveredTooltip] = useState(null)
 
   return (
     <section id="ventures" className="bg-vertex-off-white py-20 md:py-28 lg:py-32">
@@ -53,8 +55,25 @@ export default function Ventures() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: '-80px' }}
-                className={`rounded-2xl border-l-4 bg-white p-9 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_44px_-10px_rgba(183,134,44,0.35)] ${meta.accentBorder}`}
+                onMouseEnter={() => venture.tooltip && setHoveredTooltip(venture.name)}
+                onMouseLeave={() => setHoveredTooltip(null)}
+                className={`relative rounded-2xl border-l-4 bg-white p-9 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_44px_-10px_rgba(183,134,44,0.35)] ${meta.accentBorder}`}
               >
+                <AnimatePresence>
+                  {venture.tooltip && hoveredTooltip === venture.name && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 6 }}
+                      transition={{ duration: 0.18 }}
+                      className="pointer-events-none absolute -top-3 left-9 z-20 -translate-y-full whitespace-nowrap rounded-lg bg-vertex-navy px-3.5 py-2 text-xs font-medium text-white shadow-lg"
+                    >
+                      {venture.tooltip}
+                      <span className="absolute left-6 top-full h-0 w-0 border-4 border-transparent border-t-vertex-navy" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 <div className="flex flex-wrap items-center gap-3">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide">
                     <span className={`h-2 w-2 rounded-full ${meta.statusDot}`} />
@@ -67,6 +86,10 @@ export default function Ventures() {
 
                 <h3 className="mt-5 font-serif text-[28px] font-bold text-vertex-navy">{venture.name}</h3>
 
+                {venture.description && (
+                  <p className="mt-3 text-[15px] leading-[1.65] text-vertex-text-mid">{venture.description}</p>
+                )}
+
                 <p className="mt-5 rounded-r-lg border-l-2 border-vertex-gold bg-vertex-gold/[0.06] px-5 py-3 text-[14.5px] italic text-vertex-text-mid">
                   {t.ventures.quoteOpen}
                   {venture.problem}
@@ -74,6 +97,18 @@ export default function Ventures() {
                 </p>
 
                 <p className="mt-5 text-[15.5px] leading-[1.7] text-vertex-text-mid">{venture.solution}</p>
+
+                {venture.cta && (
+                  <motion.a
+                    href={venture.cta.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.02 }}
+                    className="mt-6 inline-flex items-center gap-2 rounded-lg border-2 border-vertex-orange bg-transparent px-6 py-2.5 text-sm font-semibold text-vertex-orange transition-colors duration-200 hover:bg-vertex-orange hover:text-white"
+                  >
+                    {venture.cta.label}
+                  </motion.a>
+                )}
 
                 <div className="mt-6 flex flex-wrap gap-2">
                   {meta.tags.map((tag) => (

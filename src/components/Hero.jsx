@@ -98,7 +98,7 @@ function TriangleGridCanvas() {
 }
 
 /** Counts up from 0 to `target` once it scrolls into view. */
-function StatCounter({ target, label, delay }) {
+function StatCounter({ target, label, delay, live }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
   const [count, setCount] = useState(0)
@@ -116,10 +116,26 @@ function StatCounter({ target, label, delay }) {
 
   return (
     <div ref={ref} className="min-w-[104px] flex-1 px-4 text-center sm:min-w-[150px] sm:px-8">
-      <div className="font-serif text-3xl font-bold text-vertex-gold-light sm:text-4xl">{count}</div>
+      <div
+        className={`font-serif text-3xl font-bold sm:text-4xl ${
+          live ? 'text-vertex-success' : 'text-vertex-gold-light'
+        }`}
+      >
+        {count}
+      </div>
       <div className="mt-2.5 text-[10.5px] uppercase leading-snug tracking-[0.06em] text-white/70 sm:text-[11px] sm:tracking-[0.1em]">
         {label}
       </div>
+      {live && (
+        <div className="mx-auto mt-2.5 h-[3px] w-10 overflow-hidden rounded-full bg-vertex-orange/25">
+          <motion.div
+            className="h-full w-1/2 rounded-full bg-vertex-orange"
+            initial={{ x: '-100%' }}
+            animate={inView ? { x: ['-100%', '200%'] } : {}}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut', delay: delay + 0.4 }}
+          />
+        </div>
+      )}
     </div>
   )
 }
@@ -220,7 +236,7 @@ export default function Hero() {
                   aria-hidden="true"
                 />
               )}
-              <StatCounter target={stat.target} label={stat.label} delay={i * 0.15} />
+              <StatCounter target={stat.target} label={stat.label} delay={i * 0.15} live={i === 1} />
             </div>
           ))}
         </motion.div>

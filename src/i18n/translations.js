@@ -2,7 +2,7 @@ export const translations = {
   fr: {
     meta: {
       description:
-        "Vertex Global, groupe d'innovation technologique africain. Venture Studio basé à Cotonou, Bénin. EnergyTech, HealthTech, Cybersécurité, IA, TourismTech.",
+        "Vertex Global — Groupe d'innovation technologique africain. Venture Studio basé à Cotonou, Bénin. FastGarage en production. EnergyTech, HealthTech, Cybersécurité, IA, TourismTech.",
     },
 
     nav: {
@@ -10,6 +10,7 @@ export const translations = {
       about: 'À propos',
       poles: 'Pôles',
       ventures: 'Ventures',
+      fastgarage: 'FastGarage',
       join: 'Rejoindre',
       contact: 'Contact',
       cta: "Rejoindre l'aventure",
@@ -27,7 +28,7 @@ export const translations = {
       scrollAria: 'Défiler vers la section suivante',
       stats: [
         { target: 6, label: "Pôles d'innovation" },
-        { target: 2, label: 'Ventures actives' },
+        { target: 2, label: 'Ventures (1 en production)' },
         { target: 10, label: 'Principes fondateurs' },
       ],
     },
@@ -64,6 +65,7 @@ export const translations = {
         {
           name: 'EnergyTech',
           description: "Gestion intelligente de l'énergie, recharge prépayée, services aux opérateurs et usagers.",
+          tooltip: 'RechargRapid — En développement',
         },
         {
           name: 'HealthTech',
@@ -98,6 +100,8 @@ export const translations = {
           name: 'RechargRapid',
           pole: 'EnergyTech',
           status: 'En développement',
+          description:
+            'Plateforme de recharge de compteurs SBEE par Mobile Money, disponible 24h/24 pour tous les foyers béninois.',
           problem: 'Vous êtes dans le noir à 22h. Votre compteur SBEE est tombé à zéro. Le bureau est fermé.',
           solution:
             "Recharge de compteurs SBEE par Mobile Money, disponible 24h/24, depuis n'importe quel téléphone.",
@@ -105,14 +109,39 @@ export const translations = {
         {
           name: 'FastGarage',
           pole: 'MobilityTech',
-          status: 'En développement',
-          problem: 'Vous êtes en panne sur la route. Vous ne savez pas qui appeler ni où aller.',
-          solution: 'Mise en relation immédiate avec des garages et dépanneurs certifiés au Bénin.',
+          status: 'Actif',
+          description:
+            'Plateforme de mise en relation pour assistance dépannage automobile au Bénin. Trouvez un garage certifié ou un dépanneur en quelques secondes, depuis votre téléphone.',
+          problem:
+            'Vous êtes en panne sur la route. Vous ne savez pas qui appeler ni où aller. Chaque minute compte.',
+          solution:
+            'Mise en relation immédiate avec des garages et dépanneurs certifiés au Bénin — disponible 24h/24.',
+          tooltip: 'FastGarage — En production · fast-garage.vercel.app',
+          cta: { label: 'Voir FastGarage →', href: 'https://fast-garage.vercel.app/' },
         },
       ],
       teaserText:
         '3+ ventures en conception, réparties entre HealthTech, Cybersécurité et Intelligence Artificielle, actuellement en phase de validation terrain avant premier déploiement.',
       teaserCta: 'Rejoignez-nous pour découvrir la suite',
+    },
+
+    fastgarage: {
+      label: 'VENTURE ACTIVE',
+      title: 'FastGarage',
+      tagline: 'Le dépannage automobile au Bénin, réinventé.',
+      body: [
+        "FastGarage connecte instantanément les automobilistes en panne avec des garages et dépanneurs certifiés au Bénin. Plus besoin de chercher dans vos contacts ou d'attendre qu'un ami connaisse quelqu'un.",
+        'Disponible 24h/24, depuis n\'importe quel téléphone. Géolocalisation intégrée. Devis en temps réel. Paiement sécurisé.',
+      ],
+      features: [
+        { title: 'Géolocalisation', desc: 'Trouvez le garage le plus proche' },
+        { title: 'Réponse rapide', desc: 'Dépanneur en route en moins de 10 min' },
+        { title: 'Certifié', desc: 'Garages vérifiés et notés par la communauté' },
+      ],
+      cta: 'Visiter FastGarage',
+      mapLabel: 'Cotonou, Bénin',
+      available: 'Disponible',
+      callCta: 'Appeler un dépanneur',
     },
 
     join: {
@@ -178,6 +207,7 @@ export const translations = {
       tagline: "Groupe d'innovation technologique africain.",
       location: "Cotonou, Bénin · Afrique de l'Ouest",
       navTitle: 'Navigation',
+      venturesTitle: 'Nos ventures',
       socialTitle: 'Suivez-nous',
       rights: 'Tous droits réservés.',
       motto: "Bâtir l'Afrique. Build the world.",
@@ -195,7 +225,7 @@ export const translations = {
   en: {
     meta: {
       description:
-        'Vertex Global, African technology innovation group. Venture studio based in Cotonou, Bénin. EnergyTech, HealthTech, Cybersecurity, AI, TourismTech.',
+        'Vertex Global — African technology innovation group. Venture studio based in Cotonou, Bénin. FastGarage in production. EnergyTech, HealthTech, Cybersecurity, AI, TourismTech.',
     },
 
     nav: {
@@ -203,6 +233,7 @@ export const translations = {
       about: 'About',
       poles: 'Hubs',
       ventures: 'Ventures',
+      fastgarage: 'FastGarage',
       join: 'Join',
       contact: 'Contact',
       cta: 'Join the journey',
@@ -220,7 +251,7 @@ export const translations = {
       scrollAria: 'Scroll to next section',
       stats: [
         { target: 6, label: 'Innovation hubs' },
-        { target: 2, label: 'Active ventures' },
+        { target: 2, label: 'Ventures (1 live)' },
         { target: 10, label: 'Founding principles' },
       ],
     },
@@ -257,6 +288,7 @@ export const translations = {
         {
           name: 'EnergyTech',
           description: 'Smart energy management, prepaid recharging, and services for operators and end users.',
+          tooltip: 'RechargRapid — In development',
         },
         {
           name: 'HealthTech',
@@ -291,20 +323,45 @@ export const translations = {
           name: 'RechargRapid',
           pole: 'EnergyTech',
           status: 'In Development',
+          description:
+            'A Mobile Money platform to top up SBEE meters, available 24/7 for every household in Bénin.',
           problem: "You're in the dark at 10pm. Your SBEE meter just hit zero. The office is closed.",
           solution: 'Top up SBEE meters via Mobile Money, available 24/7, from any phone.',
         },
         {
           name: 'FastGarage',
           pole: 'MobilityTech',
-          status: 'In Development',
-          problem: "You've broken down on the road. You don't know who to call or where to go.",
-          solution: 'Instant matching with certified garages and towing services across Bénin.',
+          status: 'Active',
+          description:
+            "A matchmaking platform for roadside assistance in Bénin. Find a certified garage or tow truck in seconds, from your phone.",
+          problem: "You've broken down on the road. You don't know who to call or where to go. Every minute counts.",
+          solution: 'Instant matching with certified garages and towing services across Bénin — available 24/7.',
+          tooltip: 'FastGarage — In production · fast-garage.vercel.app',
+          cta: { label: 'View FastGarage →', href: 'https://fast-garage.vercel.app/' },
         },
       ],
       teaserText:
         "3+ ventures in the works, spanning HealthTech, Cybersecurity, and Artificial Intelligence, currently in field validation ahead of first deployment.",
       teaserCta: "Join us to see what's next",
+    },
+
+    fastgarage: {
+      label: 'ACTIVE VENTURE',
+      title: 'FastGarage',
+      tagline: 'Roadside assistance in Bénin, reinvented.',
+      body: [
+        "FastGarage instantly connects stranded drivers with certified garages and tow trucks across Bénin. No more scrolling through contacts or waiting for a friend to know someone.",
+        'Available 24/7, from any phone. Built-in geolocation. Real-time quotes. Secure payment.',
+      ],
+      features: [
+        { title: 'Geolocation', desc: 'Find the closest garage' },
+        { title: 'Fast response', desc: 'A tow truck en route in under 10 minutes' },
+        { title: 'Certified', desc: 'Garages verified and rated by the community' },
+      ],
+      cta: 'Visit FastGarage',
+      mapLabel: 'Cotonou, Bénin',
+      available: 'Available',
+      callCta: 'Call a tow truck',
     },
 
     join: {
@@ -370,6 +427,7 @@ export const translations = {
       tagline: 'African technology innovation group.',
       location: 'Cotonou, Bénin · West Africa',
       navTitle: 'Navigation',
+      venturesTitle: 'Our ventures',
       socialTitle: 'Follow us',
       rights: 'All rights reserved.',
       motto: "Bâtir l'Afrique. Build the world.",

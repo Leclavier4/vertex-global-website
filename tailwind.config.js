@@ -15,6 +15,9 @@ export default {
           'text-dark': '#111827',
           'text-mid': '#374151',
           'text-muted': '#6B7280',
+          orange: '#F59E0B',
+          'orange-dark': '#D98C0A',
+          success: '#22C55E',
         },
       },
       fontFamily: {

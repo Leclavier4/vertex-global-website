@@ -68,6 +68,7 @@ export default function Footer() {
     { label: t.nav.about, to: 'about' },
     { label: t.nav.poles, to: 'poles' },
     { label: t.nav.ventures, to: 'ventures' },
+    { label: t.nav.fastgarage, to: 'fastgarage' },
     { label: t.nav.join, to: 'join' },
     { label: t.nav.contact, to: 'contact' },
   ]
@@ -75,7 +76,7 @@ export default function Footer() {
   return (
     <footer className="bg-vertex-navy pt-20">
       <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-16">
-        <div className="grid grid-cols-1 gap-12 pb-14 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-12 pb-14 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <VertexWordmark theme="light" markSize={40} />
             <p className="mt-5 max-w-xs text-[14.5px] text-[#9CA9BA]">{t.footer.tagline}</p>
@@ -121,6 +122,44 @@ export default function Footer() {
                 </ScrollLink>
               ))}
             </nav>
+          </div>
+
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-white">{t.footer.venturesTitle}</h4>
+            <div className="mt-5 flex flex-col gap-3">
+              {t.ventures.items.map((venture) => {
+                const isFastGarage = venture.name === 'FastGarage'
+                const content = (
+                  <span className="flex items-center gap-2 text-[14.5px] text-[#B8C4D4]">
+                    {venture.name}
+                    {isFastGarage && (
+                      <>
+                        {' '}— fast-garage.vercel.app
+                        <span className="rounded-full bg-vertex-orange px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                          Live
+                        </span>
+                      </>
+                    )}
+                    {!isFastGarage && <span className="text-[#8493A6]"> — {venture.status}</span>}
+                  </span>
+                )
+                return isFastGarage ? (
+                  <a
+                    key={venture.name}
+                    href="https://fast-garage.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-fit transition-colors duration-200 hover:text-vertex-gold-light"
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <span key={venture.name} className="w-fit">
+                    {content}
+                  </span>
+                )
+              })}
+            </div>
           </div>
 
           <div>

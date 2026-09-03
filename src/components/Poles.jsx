@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
 
@@ -88,6 +89,7 @@ const cardVariants = {
 
 export default function Poles() {
   const { t } = useLanguage()
+  const [hoveredTooltip, setHoveredTooltip] = useState(null)
 
   return (
     <section id="poles" className="bg-vertex-navy py-20 md:py-28 lg:py-32">
@@ -102,7 +104,7 @@ export default function Poles() {
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {t.poles.items.map(({ name, description }, i) => {
+          {t.poles.items.map(({ name, description, tooltip }, i) => {
             const Icon = ICONS[i]
             return (
               <motion.article
@@ -112,8 +114,24 @@ export default function Poles() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: '-80px' }}
+                onMouseEnter={() => tooltip && setHoveredTooltip(name)}
+                onMouseLeave={() => setHoveredTooltip(null)}
                 className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-vertex-blue-deep p-8 transition-all duration-300 hover:-translate-y-2 hover:bg-vertex-blue-light/20"
               >
+                <AnimatePresence>
+                  {tooltip && hoveredTooltip === name && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 6 }}
+                      transition={{ duration: 0.18 }}
+                      className="pointer-events-none absolute left-8 top-6 z-20 whitespace-nowrap rounded-lg bg-vertex-navy px-3.5 py-2 text-xs font-medium text-white shadow-lg ring-1 ring-white/10"
+                    >
+                      {tooltip}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 <Icon className="h-10 w-10 text-vertex-gold-light" />
                 <h3 className="mt-6 font-serif text-xl font-bold text-white">{name}</h3>
                 <p className="mt-2.5 text-sm leading-[1.6] text-gray-400">{description}</p>

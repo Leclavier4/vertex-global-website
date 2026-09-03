@@ -3,6 +3,7 @@ import Hero from './components/Hero'
 import About from './components/About'
 import Poles from './components/Poles'
 import Ventures from './components/Ventures'
+import FastGarageSection from './components/FastGarageSection'
 import Join from './components/Join'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
@@ -27,6 +28,9 @@ function App() {
         </ErrorBoundary>
         <ErrorBoundary>
           <Ventures />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <FastGarageSection />
         </ErrorBoundary>
         <ErrorBoundary>
           <Join />

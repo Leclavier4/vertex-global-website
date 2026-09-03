@@ -5,7 +5,7 @@ import { Menu, X } from 'lucide-react'
 import { VertexWordmark } from './VertexMark'
 import { useLanguage } from '../i18n/LanguageContext'
 
-const SECTION_IDS = ['hero', 'about', 'poles', 'ventures', 'join']
+const SECTION_IDS = ['hero', 'about', 'poles', 'ventures', 'fastgarage', 'join']
 
 function useActiveSection(ids) {
   const [active, setActive] = useState(ids[0])
@@ -52,6 +52,7 @@ export default function Navbar() {
     { label: t.nav.about, to: 'about' },
     { label: t.nav.poles, to: 'poles' },
     { label: t.nav.ventures, to: 'ventures' },
+    { label: t.nav.fastgarage, to: 'fastgarage' },
     { label: t.nav.join, to: 'join' },
     { label: t.nav.contact, to: 'contact' },
   ]
@@ -97,6 +98,14 @@ export default function Navbar() {
               }`}
             >
               {item.label}
+              {item.to === 'ventures' && (
+                <motion.span
+                  aria-hidden="true"
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                  className="ml-1.5 inline-block h-1.5 w-1.5 rounded-full bg-vertex-orange align-middle"
+                />
+              )}
             </ScrollLink>
           ))}
 
@@ -146,6 +155,14 @@ export default function Navbar() {
                   }`}
                 >
                   {item.label}
+                  {item.to === 'ventures' && (
+                    <motion.span
+                      aria-hidden="true"
+                      animate={{ scale: [1, 1.3, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                      className="ml-2 inline-block h-2 w-2 rounded-full bg-vertex-orange align-middle"
+                    />
+                  )}
                 </ScrollLink>
               </motion.div>
             ))}
