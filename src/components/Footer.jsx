@@ -95,13 +95,13 @@ export default function Footer() {
                 vertexglos@gmail.com
               </a>
               <a
-                href="https://wa.me/22901473316"
+                href="https://wa.me/22901473336116"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2.5 text-[14.5px] text-[#9CA9BA] transition-colors duration-200 hover:text-vertex-gold-light"
               >
                 <Phone className="h-4 w-4 shrink-0 text-vertex-gold" />
-                +229 01 47 33 36 16
+                +229 01 47 33 36 116
               </a>
             </div>
           </div>
@@ -182,6 +182,10 @@ export default function Footer() {
         </div>
 
         <hr className="border-t border-vertex-gold/30" />
+
+        <p className="pt-6 text-center text-[10.5px] leading-relaxed text-[#4B5563]">
+          VERTEX GLOBAL SARL — RCCM : RB/ABC/26 B 12287 — IFU : 3202687473834 — Abomey-Calavi, Bénin
+        </p>
 
         <div className="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">
           <p className="text-[13.5px] text-[#8493A6]">

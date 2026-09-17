@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Check, Loader2, Mail as MailIcon, MessageCircle } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
 
-const WHATSAPP_NUMBER = '22901473316'
+const WHATSAPP_NUMBER = '22901473336116'
 const CONTACT_EMAIL = 'vertexglos@gmail.com'
 
 const initialValues = { name: '', email: '', type: '', message: '', channel: '' }
@@ -13,7 +13,8 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 function getErrors(values, errorMessages) {
   return {
     name: values.name.trim() === '' ? errorMessages.name : '',
-    email: !EMAIL_RE.test(values.email.trim()) ? errorMessages.email : '',
+    // Email is only required — and only validated — when the Email channel is selected.
+    email: values.channel === 'email' && !EMAIL_RE.test(values.email.trim()) ? errorMessages.email : '',
     type: values.type === '' ? errorMessages.type : '',
     message: values.message.trim() === '' ? errorMessages.message : '',
     channel: values.channel === '' ? errorMessages.channel : '',
@@ -21,15 +22,16 @@ function getErrors(values, errorMessages) {
 }
 
 function buildMailtoUrl({ name, email, type, message }, formT) {
-  const subject = `${formT.mailSubjectPrefix} - ${type}`
+  const subject = `${formT.mailSubjectPrefix} — ${type}`
   const { name: nameLabel, email: emailLabel, type: typeLabel, message: messageLabel } = formT.mailFieldLabels
-  const body = `${nameLabel}: ${name}\n${emailLabel}: ${email}\n${typeLabel}: ${type}\n${messageLabel}: ${message}`
+  const body = `${nameLabel}: ${name}\n${emailLabel}: ${email}\n${typeLabel}: ${type}\n\n${messageLabel}: ${message}`
   return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 }
 
-function buildWhatsappUrl({ name, email, type, message }, formT) {
-  const { name: nameLabel, email: emailLabel, type: typeLabel, message: messageLabel } = formT.waFieldLabels
-  const text = `${formT.waGreeting}\n\n${nameLabel}: ${name}\n${emailLabel}: ${email}\n${typeLabel}: ${type}\n\n${messageLabel}: ${message}`
+function buildWhatsappUrl({ name, type, message }, formT) {
+  // WhatsApp flow never includes email — the field is hidden and unused for this channel.
+  const { name: nameLabel, type: typeLabel, message: messageLabel } = formT.waFieldLabels
+  const text = `${formT.waGreeting}\n\n${nameLabel}: ${name}\n${typeLabel}: ${type}\n\n${messageLabel}: ${message}`
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
 }
 
@@ -58,7 +60,17 @@ function ContactForm() {
 
   function handleChange(e) {
     const { name, value } = e.target
-    setValues((prev) => ({ ...prev, [name]: value }))
+    setValues((prev) => {
+      // Switching away from Email clears any typed address — the field is unmounted
+      // and must not be required or sent as part of the WhatsApp message.
+      if (name === 'channel' && value !== 'email') {
+        return { ...prev, channel: value, email: '' }
+      }
+      return { ...prev, [name]: value }
+    })
+    if (name === 'channel' && value !== 'email') {
+      setTouched((prev) => ({ ...prev, email: false }))
+    }
   }
 
   function handleBlur(e) {
@@ -86,7 +98,7 @@ function ContactForm() {
       setTouched({})
       setSubmitAttempted(false)
 
-      window.setTimeout(() => setBannerMessage(''), 5000)
+      window.setTimeout(() => setBannerMessage(''), 4000)
     }, 600)
   }
 
@@ -149,22 +161,24 @@ function ContactForm() {
           {showError('name') && <p className="mt-1.5 text-xs text-red-300">{errors.name}</p>}
         </div>
 
-        <div>
-          <label htmlFor="email" className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#D4D4D4]">
-            {formT.emailLabel}
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder={formT.emailPlaceholder}
-            className={fieldClass('email')}
-          />
-          {showError('email') && <p className="mt-1.5 text-xs text-red-300">{errors.email}</p>}
-        </div>
+        {values.channel === 'email' && (
+          <div>
+            <label htmlFor="email" className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#D4D4D4]">
+              {formT.emailLabel}
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder={formT.emailPlaceholder}
+              className={fieldClass('email')}
+            />
+            {showError('email') && <p className="mt-1.5 text-xs text-red-300">{errors.email}</p>}
+          </div>
+        )}
 
         <div>
           <label htmlFor="type" className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#D4D4D4]">
@@ -240,6 +254,11 @@ function ContactForm() {
             </label>
           </div>
           {showError('channel') && <p className="mt-1.5 text-xs text-red-300">{errors.channel}</p>}
+          {(values.channel === 'email' || values.channel === 'whatsapp') && (
+            <p className="mt-2.5 text-xs italic text-white/50">
+              {values.channel === 'whatsapp' ? formT.helperWhatsapp : formT.helperEmail}
+            </p>
+          )}
         </fieldset>
 
         <button
