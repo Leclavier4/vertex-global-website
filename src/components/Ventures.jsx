@@ -4,20 +4,16 @@ import { Link as ScrollLink } from 'react-scroll'
 import { ArrowRight } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
 
-const VENTURES_META = [
-  {
-    accentBorder: 'border-l-vertex-gold',
-    statusDot: 'bg-green-500',
-    statusText: 'text-green-700',
-    tags: ['#EnergyTech', '#MobileMoney', '#Bénin'],
-  },
-  {
+// Keyed by venture name (not position) so a venture can be added or removed
+// from translations.js without silently mismatching the wrong meta entry.
+const VENTURES_META = {
+  FastGarage: {
     accentBorder: 'border-l-vertex-orange',
     statusDot: 'bg-vertex-success',
     statusText: 'text-green-700',
     tags: ['#MobilityTech', '#Automotive', '#Bénin', '#En production'],
   },
-]
+}
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -44,9 +40,13 @@ export default function Ventures() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-7 lg:grid-cols-2">
+        <div
+          className={`grid grid-cols-1 gap-7 ${
+            t.ventures.items.length > 1 ? 'lg:grid-cols-2' : 'mx-auto max-w-xl'
+          }`}
+        >
           {t.ventures.items.map((venture, i) => {
-            const meta = VENTURES_META[i]
+            const meta = VENTURES_META[venture.name]
             return (
               <motion.article
                 key={venture.name}

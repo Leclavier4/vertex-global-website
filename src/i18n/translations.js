@@ -28,7 +28,7 @@ export const translations = {
       scrollAria: 'Défiler vers la section suivante',
       stats: [
         { target: 6, label: "Pôles d'innovation" },
-        { target: 2, label: 'Ventures (1 en production)' },
+        { target: 1, label: 'Venture en production' },
         { target: 10, label: 'Principes fondateurs' },
       ],
     },
@@ -65,7 +65,6 @@ export const translations = {
         {
           name: 'EnergyTech',
           description: "Gestion intelligente de l'énergie, recharge prépayée, services aux opérateurs et usagers.",
-          tooltip: 'RechargRapid — En développement',
         },
         {
           name: 'HealthTech',
@@ -96,16 +95,6 @@ export const translations = {
       quoteOpen: '« ',
       quoteClose: ' »',
       items: [
-        {
-          name: 'RechargRapid',
-          pole: 'EnergyTech',
-          status: 'En développement',
-          description:
-            'Plateforme de recharge de compteurs SBEE par Mobile Money, disponible 24h/24 pour tous les foyers béninois.',
-          problem: 'Vous êtes dans le noir à 22h. Votre compteur SBEE est tombé à zéro. Le bureau est fermé.',
-          solution:
-            "Recharge de compteurs SBEE par Mobile Money, disponible 24h/24, depuis n'importe quel téléphone.",
-        },
         {
           name: 'FastGarage',
           pole: 'MobilityTech',
@@ -253,7 +242,7 @@ export const translations = {
       scrollAria: 'Scroll to next section',
       stats: [
         { target: 6, label: 'Innovation hubs' },
-        { target: 2, label: 'Ventures (1 live)' },
+        { target: 1, label: 'Venture in production' },
         { target: 10, label: 'Founding principles' },
       ],
     },
@@ -290,7 +279,6 @@ export const translations = {
         {
           name: 'EnergyTech',
           description: 'Smart energy management, prepaid recharging, and services for operators and end users.',
-          tooltip: 'RechargRapid — In development',
         },
         {
           name: 'HealthTech',
@@ -321,15 +309,6 @@ export const translations = {
       quoteOpen: '“',
       quoteClose: '”',
       items: [
-        {
-          name: 'RechargRapid',
-          pole: 'EnergyTech',
-          status: 'In Development',
-          description:
-            'A Mobile Money platform to top up SBEE meters, available 24/7 for every household in Bénin.',
-          problem: "You're in the dark at 10pm. Your SBEE meter just hit zero. The office is closed.",
-          solution: 'Top up SBEE meters via Mobile Money, available 24/7, from any phone.',
-        },
         {
           name: 'FastGarage',
           pole: 'MobilityTech',
