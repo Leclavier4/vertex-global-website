@@ -2,7 +2,7 @@ export const translations = {
   fr: {
     meta: {
       description:
-        "Vertex Global — Groupe d'innovation technologique africain. Venture Studio basé à Cotonou, Bénin. FastGarage en production. EnergyTech, HealthTech, Cybersécurité, IA, TourismTech.",
+        'Vertex Global est un Venture Studio africain basé au Bénin. Nous identifions des problèmes réels et construisons des solutions numériques à impact. RCCM : RB/ABC/26 B 12287',
     },
 
     nav: {
@@ -183,8 +183,10 @@ export const translations = {
           email: 'Merci de renseigner une adresse email valide.',
           type: 'Merci de sélectionner un type de collaboration.',
           message: 'Merci de rédiger un message.',
+          messageMinLength: 'Votre message doit contenir au moins 20 caractères.',
           channel: 'Merci de choisir un canal de contact.',
         },
+        rateLimited: 'Trop de tentatives. Merci de réessayer dans quelques minutes.',
         successEmail: 'Email préparé — envoyez-le depuis votre messagerie.',
         successWhatsapp: 'Message WhatsApp préparé — envoyez-le pour finaliser.',
         mailSubjectPrefix: 'Collaboration Vertex Global',
@@ -395,8 +397,10 @@ export const translations = {
           email: 'Please enter a valid email address.',
           type: 'Please select a collaboration type.',
           message: 'Please write a message.',
+          messageMinLength: 'Your message must be at least 20 characters long.',
           channel: 'Please choose a contact channel.',
         },
+        rateLimited: 'Too many attempts. Please try again in a few minutes.',
         successEmail: 'Email prepared — send it from your mail app.',
         successWhatsapp: 'WhatsApp message prepared — send it to finish.',
         mailSubjectPrefix: 'Vertex Global Collaboration',

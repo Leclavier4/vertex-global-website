@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="20" fill="#0D1F35" />
+  <text
+    x="50"
+    y="58"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-weight="bold"
+    font-size="42"
+    fill="#B7862C"
+  >VG</text>
+  <rect x="18" y="70" width="64" height="3" rx="1.5" fill="#D4A84B" />
+</svg>

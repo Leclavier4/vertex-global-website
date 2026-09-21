@@ -6,6 +6,9 @@ html {
   scroll-behavior: smooth;
   overflow-x: hidden;
   width: 100%;
+  /* Keeps plain #anchor jumps (e.g. footer/nav "#contact" links) clear of the
+     fixed navbar; react-scroll links already handle their own offset in JS. */
+  scroll-padding-top: 6rem;
 }
 
 body {

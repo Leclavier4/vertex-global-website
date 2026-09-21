@@ -1,12 +1,21 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Check, Loader2, Mail as MailIcon, MessageCircle } from 'lucide-react'
+import { AlertTriangle, Check, Loader2, Mail as MailIcon, MessageCircle } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
 
 const WHATSAPP_NUMBER = '22901473336116'
 const CONTACT_EMAIL = 'vertexglos@gmail.com'
 
-const initialValues = { name: '', email: '', type: '', message: '', channel: '' }
+const MESSAGE_MIN_LENGTH = 20
+
+// Anti-spam: max submissions allowed within the rolling time window.
+const RATE_LIMIT_KEY = 'vg_form_submissions'
+const RATE_LIMIT_MAX = 3
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000
+
+// `website` is a honeypot: hidden from real visitors via CSS, so only bots
+// that blindly fill every input end up populating it.
+const initialValues = { name: '', email: '', type: '', message: '', channel: '', website: '' }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -16,8 +25,40 @@ function getErrors(values, errorMessages) {
     // Email is only required — and only validated — when the Email channel is selected.
     email: values.channel === 'email' && !EMAIL_RE.test(values.email.trim()) ? errorMessages.email : '',
     type: values.type === '' ? errorMessages.type : '',
-    message: values.message.trim() === '' ? errorMessages.message : '',
+    message: getMessageError(values.message, errorMessages),
     channel: values.channel === '' ? errorMessages.channel : '',
+  }
+}
+
+function getMessageError(message, errorMessages) {
+  const trimmed = message.trim()
+  if (trimmed === '') return errorMessages.message
+  if (trimmed.length < MESSAGE_MIN_LENGTH) return errorMessages.messageMinLength
+  return ''
+}
+
+function getRecentSubmissions() {
+  try {
+    const raw = window.localStorage.getItem(RATE_LIMIT_KEY)
+    const timestamps = raw ? JSON.parse(raw) : []
+    if (!Array.isArray(timestamps)) return []
+    return timestamps.filter((ts) => Date.now() - ts < RATE_LIMIT_WINDOW_MS)
+  } catch {
+    return []
+  }
+}
+
+function isRateLimited() {
+  return getRecentSubmissions().length >= RATE_LIMIT_MAX
+}
+
+function recordSubmission() {
+  try {
+    const recent = getRecentSubmissions()
+    recent.push(Date.now())
+    window.localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(recent))
+  } catch {
+    // localStorage unavailable — rate limiting just becomes a no-op for this visitor.
   }
 }
 
@@ -53,6 +94,7 @@ function ContactForm() {
   const [submitAttempted, setSubmitAttempted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [bannerMessage, setBannerMessage] = useState('')
+  const [bannerVariant, setBannerVariant] = useState('success')
 
   const errors = getErrors(values, formT.errors)
   const isValid = Object.values(errors).every((msg) => msg === '')
@@ -79,20 +121,35 @@ function ContactForm() {
 
   function handleSubmit(e) {
     e.preventDefault()
+
+    // Honeypot: real visitors never see or fill this field, so a non-empty
+    // value means a bot filled every input. Reject silently — no error, no banner.
+    if (values.website.trim() !== '') return
+
     setSubmitAttempted(true)
     if (!isValid || loading) return
+
+    if (isRateLimited()) {
+      setBannerVariant('error')
+      setBannerMessage(formT.rateLimited)
+      window.setTimeout(() => setBannerMessage(''), 4000)
+      return
+    }
 
     setLoading(true)
 
     window.setTimeout(() => {
       if (values.channel === 'whatsapp') {
         window.open(buildWhatsappUrl(values, formT), '_blank', 'noopener,noreferrer')
+        setBannerVariant('success')
         setBannerMessage(formT.successWhatsapp)
       } else {
         window.location.href = buildMailtoUrl(values, formT)
+        setBannerVariant('success')
         setBannerMessage(formT.successEmail)
       }
 
+      recordSubmission()
       setLoading(false)
       setValues(initialValues)
       setTouched({})
@@ -134,8 +191,16 @@ function ContactForm() {
               role="status"
               className="overflow-hidden"
             >
-              <div className="flex items-center gap-2.5 rounded-lg bg-emerald-600 px-4 py-3 text-sm font-semibold text-white">
-                <Check className="h-4 w-4 shrink-0" />
+              <div
+                className={`flex items-center gap-2.5 rounded-lg px-4 py-3 text-sm font-semibold text-white ${
+                  bannerVariant === 'error' ? 'bg-red-600' : 'bg-emerald-600'
+                }`}
+              >
+                {bannerVariant === 'error' ? (
+                  <AlertTriangle className="h-4 w-4 shrink-0" />
+                ) : (
+                  <Check className="h-4 w-4 shrink-0" />
+                )}
                 {bannerMessage}
               </div>
             </motion.div>
@@ -144,6 +209,20 @@ function ContactForm() {
       </div>
 
       <form onSubmit={handleSubmit} noValidate className="mt-8 space-y-5">
+        {/* Honeypot — invisible to sighted and screen-reader users, only a bot fills it. */}
+        <div className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+          <label htmlFor="website">Site web</label>
+          <input
+            type="text"
+            id="website"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={values.website}
+            onChange={handleChange}
+          />
+        </div>
+
         <div>
           <label htmlFor="name" className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#D4D4D4]">
             {formT.nameLabel}

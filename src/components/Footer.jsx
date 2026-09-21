@@ -1,4 +1,5 @@
 import { Link as ScrollLink } from 'react-scroll'
+import { Link as RouterLink } from 'react-router-dom'
 import { Mail, Phone } from 'lucide-react'
 import { VertexWordmark } from './VertexMark'
 import { useLanguage } from '../i18n/LanguageContext'
@@ -185,6 +186,15 @@ export default function Footer() {
 
         <p className="pt-6 text-center text-[10.5px] leading-relaxed text-[#4B5563]">
           VERTEX GLOBAL SARL — RCCM : RB/ABC/26 B 12287 — IFU : 3202687473834 — Abomey-Calavi, Bénin
+        </p>
+
+        <p className="pt-2 text-center">
+          <RouterLink
+            to="/legal"
+            className="text-[11px] text-[#6B7280] underline decoration-transparent underline-offset-2 transition-colors duration-200 hover:text-vertex-gold-light hover:decoration-vertex-gold-light"
+          >
+            Mentions légales &amp; Politique de confidentialité
+          </RouterLink>
         </p>
 
         <div className="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">
