@@ -13,6 +13,12 @@ const SECTIONS = [
     ],
   },
   {
+    heading: 'Objet social',
+    body: [
+      "Conformément aux statuts et à l'extrait RCCM n° RB/ABC/26 B 12287, l'objet social de Vertex Global SARL comprend : le développement, la conception et l'exploitation de solutions numériques et technologiques ; la prestation de services informatiques, de conseil, d'accompagnement et de formation ; l'intermédiation, la mise en relation et l'assistance aux particuliers, entrepreneurs et entreprises dans le cadre d'opportunités d'affaires, d'études, d'investissement et de coopération internationale, notamment entre le Bénin et tout autre pays ; les prestations de traduction, d'interprétation et d'assistance administrative ; et plus généralement, toutes opérations commerciales, industrielles, financières, mobilières ou immobilières se rattachant directement ou indirectement à l'objet social ou susceptibles d'en favoriser le développement.",
+    ],
+  },
+  {
     heading: 'Données collectées',
     body: [
       'Le formulaire de contact du site collecte les données suivantes : nom complet, adresse email, et le contenu du message envoyé par le visiteur.',

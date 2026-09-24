@@ -188,6 +188,12 @@ export default function Footer() {
           VERTEX GLOBAL SARL — RCCM : RB/ABC/26 B 12287 — IFU : 3202687473834 — Abomey-Calavi, Bénin
         </p>
 
+        <p className="mx-auto mt-1 max-w-2xl text-center text-[10.5px] leading-relaxed text-[#4B5563]">
+          {
+            "Activités : Développement de solutions numériques et technologiques, services informatiques, conseil, formation, intermédiation et mise en relation, coopération internationale, et toutes opérations s'y rattachant."
+          }
+        </p>
+
         <p className="pt-2 text-center">
           <RouterLink
             to="/legal"
