@@ -77,7 +77,7 @@ export default function Footer() {
   return (
     <footer className="bg-vertex-navy pt-20">
       <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-16">
-        <div className="grid grid-cols-1 gap-12 pb-14 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-12 pb-16 md:grid-cols-2 lg:grid-cols-[1.3fr_0.85fr_1fr_1fr]">
           <div>
             <VertexWordmark theme="light" markSize={40} />
             <p className="mt-5 max-w-xs text-[14.5px] text-[#9CA9BA]">{t.footer.tagline}</p>
@@ -108,8 +108,8 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-white">{t.footer.navTitle}</h4>
-            <nav className="mt-5 flex flex-col gap-3" aria-label={t.nav.ariaFooter}>
+            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.15em] text-white">{t.footer.navTitle}</h4>
+            <nav className="flex flex-col gap-1" aria-label={t.nav.ariaFooter}>
               {navItems.map((item) => (
                 <ScrollLink
                   key={item.to}
@@ -117,7 +117,7 @@ export default function Footer() {
                   smooth
                   duration={500}
                   offset={-80}
-                  className="w-fit cursor-pointer text-[14.5px] text-[#B8C4D4] transition-colors duration-200 hover:text-vertex-gold-light"
+                  className="block w-fit cursor-pointer border-l-2 border-transparent py-1 pl-0 text-[14.5px] text-[#B8C4D4] transition-all duration-200 hover:border-vertex-gold hover:pl-3 hover:text-vertex-gold-light"
                 >
                   {item.label}
                 </ScrollLink>
@@ -126,37 +126,38 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-white">{t.footer.venturesTitle}</h4>
-            <div className="mt-5 flex flex-col gap-3">
+            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.15em] text-white">{t.footer.venturesTitle}</h4>
+            <div className="flex flex-col gap-5">
               {t.ventures.items.map((venture) => {
                 const isFastGarage = venture.name === 'FastGarage'
-                const content = (
-                  <span className="flex items-center gap-2 text-[14.5px] text-[#B8C4D4]">
-                    {venture.name}
-                    {isFastGarage && (
-                      <>
-                        {' '}— fast-garage.vercel.app
-                        <span className="rounded-full bg-vertex-orange px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
-                          Live
-                        </span>
-                      </>
-                    )}
-                    {!isFastGarage && <span className="text-[#8493A6]"> — {venture.status}</span>}
-                  </span>
-                )
                 return isFastGarage ? (
-                  <a
-                    key={venture.name}
-                    href="https://fast-garage.vercel.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-fit transition-colors duration-200 hover:text-vertex-gold-light"
-                  >
-                    {content}
-                  </a>
+                  <div key={venture.name} className="group flex flex-col gap-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[14.5px] font-medium text-white">{venture.name}</span>
+                      <span className="animate-pulse rounded-full bg-vertex-orange px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                        Live
+                      </span>
+                    </div>
+                    <a
+                      href="https://fast-garage.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex w-fit items-center gap-1 text-xs text-[#8493A6] transition-colors duration-200 hover:text-vertex-gold-light"
+                    >
+                      fast-garage.vercel.app
+                      <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                    </a>
+                  </div>
                 ) : (
-                  <span key={venture.name} className="w-fit">
-                    {content}
+                  <span key={venture.name} className="w-fit text-[14.5px] text-[#B8C4D4]">
+                    {venture.name} <span className="text-[#8493A6]">— {venture.status}</span>
                   </span>
                 )
               })}
@@ -164,8 +165,8 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-white">{t.footer.socialTitle}</h4>
-            <div className="mt-5 flex gap-3.5">
+            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.15em] text-white">{t.footer.socialTitle}</h4>
+            <div className="flex gap-3.5">
               {SOCIALS.map(({ label, Icon, href }) => (
                 <a
                   key={label}
@@ -182,26 +183,26 @@ export default function Footer() {
           </div>
         </div>
 
-        <hr className="border-t border-vertex-gold/30" />
+        <div className="mb-6 mt-12 border-t border-vertex-gold/30" />
 
-        <p className="pt-6 text-center text-[10.5px] leading-relaxed text-[#4B5563]">
-          VERTEX GLOBAL SARL — RCCM : RB/ABC/26 B 12287 — IFU : 3202687473834 — Abomey-Calavi, Bénin
-        </p>
+        <div className="flex flex-col items-center gap-2 pb-4 text-center">
+          <p className="text-[10.5px] leading-relaxed text-[#4B5563]">
+            VERTEX GLOBAL SARL — RCCM : RB/ABC/26 B 12287 — IFU : 3202687473834 — Abomey-Calavi, Bénin
+          </p>
 
-        <p className="mx-auto mt-1 max-w-2xl text-center text-[10.5px] leading-relaxed text-[#4B5563]">
-          {
-            "Activités : Développement de solutions numériques et technologiques, services informatiques, conseil, formation, intermédiation et mise en relation, coopération internationale, et toutes opérations s'y rattachant."
-          }
-        </p>
+          <p className="max-w-2xl text-[10.5px] leading-relaxed text-[#4B5563]">
+            {
+              "Activités : Développement de solutions numériques et technologiques, services informatiques, conseil, formation, intermédiation et mise en relation, coopération internationale, et toutes opérations s'y rattachant."
+            }
+          </p>
 
-        <p className="pt-2 text-center">
           <RouterLink
             to="/legal"
-            className="text-[11px] text-[#6B7280] underline decoration-transparent underline-offset-2 transition-colors duration-200 hover:text-vertex-gold-light hover:decoration-vertex-gold-light"
+            className="mt-1 text-[11px] text-[#6B7280] underline underline-offset-2 transition-colors duration-200 hover:text-vertex-gold-light"
           >
             Mentions légales &amp; Politique de confidentialité
           </RouterLink>
-        </p>
+        </div>
 
         <div className="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">
           <p className="text-[13.5px] text-[#8493A6]">
