@@ -105,8 +105,8 @@ export const translations = {
             'Vous êtes en panne sur la route. Vous ne savez pas qui appeler ni où aller. Chaque minute compte.',
           solution:
             'Mise en relation immédiate avec des garages et dépanneurs certifiés au Bénin — disponible 24h/24.',
-          tooltip: 'FastGarage — En production · fast-garage.vercel.app',
-          cta: { label: 'Voir FastGarage →', href: 'https://fast-garage.vercel.app/' },
+          tooltip: 'FastGarage — En production · fastgarage-vg.com',
+          cta: { label: 'Voir FastGarage →', href: 'https://www.fastgarage-vg.com/' },
         },
       ],
       teaserText:
@@ -319,8 +319,8 @@ export const translations = {
             "A matchmaking platform for roadside assistance in Bénin. Find a certified garage or tow truck in seconds, from your phone.",
           problem: "You've broken down on the road. You don't know who to call or where to go. Every minute counts.",
           solution: 'Instant matching with certified garages and towing services across Bénin — available 24/7.',
-          tooltip: 'FastGarage — In production · fast-garage.vercel.app',
-          cta: { label: 'View FastGarage →', href: 'https://fast-garage.vercel.app/' },
+          tooltip: 'FastGarage — In production · fastgarage-vg.com',
+          cta: { label: 'View FastGarage →', href: 'https://www.fastgarage-vg.com/' },
         },
       ],
       teaserText:

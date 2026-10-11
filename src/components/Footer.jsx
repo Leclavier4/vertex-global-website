@@ -139,12 +139,12 @@ export default function Footer() {
                       </span>
                     </div>
                     <a
-                      href="https://fast-garage.vercel.app/"
+                      href="https://www.fastgarage-vg.com/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex w-fit items-center gap-1 text-xs text-[#8493A6] transition-colors duration-200 hover:text-vertex-gold-light"
                     >
-                      fast-garage.vercel.app
+                      fastgarage-vg.com
                       <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path
                           strokeLinecap="round"

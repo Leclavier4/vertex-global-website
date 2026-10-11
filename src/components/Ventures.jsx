@@ -57,7 +57,7 @@ export default function Ventures() {
                 viewport={{ once: true, margin: '-80px' }}
                 onMouseEnter={() => venture.tooltip && setHoveredTooltip(venture.name)}
                 onMouseLeave={() => setHoveredTooltip(null)}
-                className={`relative rounded-2xl border-l-4 bg-white p-9 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_44px_-10px_rgba(183,134,44,0.35)] ${meta.accentBorder}`}
+                className={`relative rounded-2xl border border-gray-100 border-l-4 bg-white p-9 shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_44px_-10px_rgba(183,134,44,0.35)] ${meta.accentBorder}`}
               >
                 <AnimatePresence>
                   {venture.tooltip && hoveredTooltip === venture.name && (

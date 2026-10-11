@@ -73,7 +73,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,box-shadow] duration-[400ms] ease-in-out ${
         scrolled ? 'bg-vertex-navy/95 backdrop-blur-md shadow-lg shadow-black/20' : 'bg-transparent'
       }`}
     >

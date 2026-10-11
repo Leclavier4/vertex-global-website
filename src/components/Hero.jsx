@@ -3,6 +3,7 @@ import { motion, useInView, animate } from 'framer-motion'
 import { Link as ScrollLink } from 'react-scroll'
 import { ChevronDown } from 'lucide-react'
 import { VertexMark } from './VertexMark'
+import SectionDivider from './SectionDivider'
 import { useLanguage } from '../i18n/LanguageContext'
 
 /* The tagline is intentionally bilingual by brand design: it stays in
@@ -160,6 +161,17 @@ export default function Hero() {
       id="hero"
       className="relative flex min-h-screen min-h-[100svh] flex-col items-center justify-center bg-vertex-navy pb-16 pt-24 text-center sm:pb-20 sm:pt-28"
     >
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          backgroundImage: 'linear-gradient(135deg, #0D1F35 0%, #1D5FA8 40%, #0D1F35 100%)',
+          backgroundSize: '200% 200%',
+        }}
+        animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+      />
+
       <TriangleGridCanvas />
 
       <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-4">
@@ -257,6 +269,8 @@ export default function Hero() {
           <ChevronDown size={26} />
         </motion.div>
       </ScrollLink>
+
+      <SectionDivider color="#F8FAFC" />
     </section>
   )
 }

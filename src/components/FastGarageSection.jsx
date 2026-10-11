@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { MapPin, Clock, ShieldCheck, Star, Phone } from 'lucide-react'
+import SectionDivider from './SectionDivider'
 import { useLanguage } from '../i18n/LanguageContext'
 
 const FEATURE_ICONS = [MapPin, Clock, ShieldCheck]
@@ -63,7 +64,7 @@ export default function FastGarageSection() {
           </div>
 
           <motion.a
-            href="https://fast-garage.vercel.app/"
+            href="https://www.fastgarage-vg.com/"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.02 }}
@@ -135,6 +136,8 @@ export default function FastGarageSection() {
           </motion.div>
         </motion.div>
       </div>
+
+      <SectionDivider color="#0D1F35" />
     </section>
   )
 }

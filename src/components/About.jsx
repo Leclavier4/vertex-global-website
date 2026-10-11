@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Search, Layers, TrendingUp } from 'lucide-react'
+import SectionDivider from './SectionDivider'
 import { useLanguage } from '../i18n/LanguageContext'
 
 const ICONS = [Search, Layers, TrendingUp]
@@ -73,6 +74,8 @@ export default function About() {
           })}
         </div>
       </div>
+
+      <SectionDivider color="#0D1F35" />
     </section>
   )
 }

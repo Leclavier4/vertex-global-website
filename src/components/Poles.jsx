@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
+import SectionDivider from './SectionDivider'
 import { useLanguage } from '../i18n/LanguageContext'
 
 /* ---------------------------------------------------------------------
@@ -92,7 +93,7 @@ export default function Poles() {
   const [hoveredTooltip, setHoveredTooltip] = useState(null)
 
   return (
-    <section id="poles" className="bg-vertex-navy py-20 md:py-28 lg:py-32">
+    <section id="poles" className="relative overflow-hidden bg-vertex-navy py-20 md:py-28 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-16">
         <div className="mx-auto mb-16 max-w-2xl text-center">
           <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-vertex-gold">
@@ -147,6 +148,8 @@ export default function Poles() {
           })}
         </div>
       </div>
+
+      <SectionDivider color="#F8FAFC" />
     </section>
   )
 }
