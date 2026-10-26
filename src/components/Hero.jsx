@@ -1,276 +1,154 @@
-import { useEffect, useRef, useState } from 'react'
-import { motion, useInView, animate } from 'framer-motion'
-import { Link as ScrollLink } from 'react-scroll'
-import { ChevronDown } from 'lucide-react'
-import { VertexMark } from './VertexMark'
-import SectionDivider from './SectionDivider'
+import { motion } from 'framer-motion'
+import { ArrowRight, BadgeCheck, ChevronDown } from 'lucide-react'
+import OilSlick from './OilSlick'
+import Button from './ui/Button'
+import SectionLink from './ui/SectionLink'
+import { duration, ease } from '../lib/motion'
 import { useLanguage } from '../i18n/LanguageContext'
 
-/* The tagline is intentionally bilingual by brand design: it stays in
-   English regardless of the selected site language. */
+/* The headline is the brand tagline and stays in English in both
+   languages, by brand design. */
 const HEADLINE = "Building Africa's next innovation layer."
 
-/**
- * Slow-drifting triangular grid, drawn on canvas at very low opacity.
- * Pure decoration, subtle depth behind the hero content.
- */
-function TriangleGridCanvas() {
-  const canvasRef = useRef(null)
+const intro = (step) => ({
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: duration.slower, ease: ease.out, delay: 0.25 + step * 0.12 },
+})
 
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    const tileW = 130
-    const tileH = 112
-    let width = 0
-    let height = 0
-    let animationId
-
-    function resize() {
-      const parent = canvas.parentElement
-      width = parent.clientWidth
-      height = parent.clientHeight
-      canvas.width = width * dpr
-      canvas.height = height * dpr
-      canvas.style.width = `${width}px`
-      canvas.style.height = `${height}px`
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    }
-
-    function render(offsetX, offsetY) {
-      ctx.clearRect(0, 0, width, height)
-      const ox = ((offsetX % tileW) + tileW) % tileW
-      const oy = ((offsetY % tileH) + tileH) % tileH
-      ctx.strokeStyle = 'rgba(183, 134, 44, 0.07)'
-      ctx.lineWidth = 1
-      const cols = Math.ceil(width / tileW) + 2
-      const rows = Math.ceil(height / tileH) + 2
-
-      for (let row = -1; row < rows; row++) {
-        for (let col = -1; col < cols; col++) {
-          const x = col * tileW - ox
-          const y = row * tileH - oy
-          ctx.beginPath()
-          ctx.moveTo(x + tileW / 2, y + 6)
-          ctx.lineTo(x + tileW - 8, y + tileH - 8)
-          ctx.lineTo(x + 8, y + tileH - 8)
-          ctx.closePath()
-          ctx.stroke()
-        }
-      }
-    }
-
-    resize()
-    render(0, 0)
-
-    const handleResize = () => {
-      resize()
-      render(0, 0)
-    }
-    window.addEventListener('resize', handleResize)
-
-    if (!prefersReducedMotion) {
-      let offsetX = 0
-      let offsetY = 0
-      let lastTime = performance.now()
-
-      const loop = (time) => {
-        const delta = time - lastTime
-        lastTime = time
-        offsetX += delta * 0.004
-        offsetY += delta * 0.002
-        render(offsetX, offsetY)
-        animationId = requestAnimationFrame(loop)
-      }
-      animationId = requestAnimationFrame(loop)
-    }
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      if (animationId) cancelAnimationFrame(animationId)
-    }
-  }, [])
-
-  return <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" aria-hidden="true" />
-}
-
-/** Counts up from 0 to `target` once it scrolls into view. */
-function StatCounter({ target, label, delay, live }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-100px' })
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    if (!inView) return
-    const controls = animate(0, target, {
-      duration: 1.5,
-      ease: 'easeOut',
-      delay,
-      onUpdate: (v) => setCount(Math.round(v)),
-    })
-    return () => controls.stop()
-  }, [inView, target, delay])
-
+function GlassBadge({ icon, label, value, floatDelay = 0 }) {
   return (
-    <div ref={ref} className="min-w-[104px] flex-1 px-4 text-center sm:min-w-[150px] sm:px-8">
-      <div
-        className={`font-serif text-3xl font-bold sm:text-4xl ${
-          live ? 'text-vertex-success' : 'text-vertex-gold-light'
-        }`}
-      >
-        {count}
-      </div>
-      <div className="mt-2.5 text-[10.5px] uppercase leading-snug tracking-[0.06em] text-white/70 sm:text-[11px] sm:tracking-[0.1em]">
-        {label}
-      </div>
-      {live && (
-        <div className="mx-auto mt-2.5 h-[3px] w-10 overflow-hidden rounded-full bg-vertex-orange/25">
-          <motion.div
-            className="h-full w-1/2 rounded-full bg-vertex-orange"
-            initial={{ x: '-100%' }}
-            animate={inView ? { x: ['-100%', '200%'] } : {}}
-            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut', delay: delay + 0.4 }}
-          />
-        </div>
-      )}
-    </div>
+    <motion.div
+      className="glass-surface specular-edge flex items-center gap-3 rounded-ds-lg border border-white/15 bg-midnight/55 py-3 pl-3 pr-5 shadow-[0_20px_48px_-24px_rgba(8,20,38,0.9)]"
+      animate={{ y: [0, -6, 0] }}
+      transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: floatDelay }}
+    >
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-ds-md bg-white/10">{icon}</span>
+      <span className="flex flex-col">
+        <span className="ds-label text-white/60">{label}</span>
+        <span className="ds-data text-sm font-medium text-white">{value}</span>
+      </span>
+    </motion.div>
   )
-}
-
-const headlineContainer = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.08, delayChildren: 0.3 },
-  },
-}
-
-const wordVariant = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 }
 
 export default function Hero() {
   const { t } = useLanguage()
 
+  const badges = (
+    <>
+      <GlassBadge
+        icon={<BadgeCheck className="h-[18px] w-[18px] text-vertex-gold-light" aria-hidden="true" />}
+        label={t.hero.badgeLegalLabel}
+        value={t.hero.badgeLegalValue}
+      />
+      <GlassBadge
+        icon={<span className="live-dot" aria-hidden="true" />}
+        label={t.hero.badgeLiveLabel}
+        value={t.hero.badgeLiveValue}
+        floatDelay={1.6}
+      />
+    </>
+  )
+
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen min-h-[100svh] flex-col items-center justify-center bg-vertex-navy pb-16 pt-24 text-center sm:pb-20 sm:pt-28"
+      aria-labelledby="hero-title"
+      className="theme-dark relative isolate overflow-hidden rounded-b-ds-xl bg-midnight lg:rounded-b-ds-2xl"
     >
-      <motion.div
+      <OilSlick className="absolute inset-0 -z-20" />
+
+      {/* Readability scrims: guarantee headline contrast whatever the surface does. */}
+      <div
         aria-hidden="true"
-        className="absolute inset-0"
-        style={{
-          backgroundImage: 'linear-gradient(135deg, #0D1F35 0%, #1D5FA8 40%, #0D1F35 100%)',
-          backgroundSize: '200% 200%',
-        }}
-        animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,20,38,0.45)_0%,rgba(8,20,38,0.72)_55%,rgba(8,20,38,0.9)_100%)] lg:bg-[linear-gradient(90deg,rgba(8,20,38,0.9)_0%,rgba(8,20,38,0.62)_40%,rgba(8,20,38,0.08)_78%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-midnight/85 to-transparent"
       />
 
-      <TriangleGridCanvas />
+      <div className="ds-container relative flex min-h-[100svh] flex-col justify-center pb-20 pt-32 lg:min-h-[min(100svh,980px)] lg:pb-28">
+        <div className="max-w-[46rem]">
+          <motion.p {...intro(0)} className="ds-eyebrow inline-flex items-center gap-2.5 text-vertex-gold-light">
+            <span className="h-px w-8 bg-vertex-gold-light/70" aria-hidden="true" />
+            {t.hero.eyebrow}
+          </motion.p>
 
-      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
-          className="mb-6 sm:mb-9"
-        >
-          <div className="animate-logo-glow">
-            <VertexMark size={140} />
-          </div>
-        </motion.div>
+          <h1 id="hero-title" className="ds-display mt-6 text-balance text-white">
+            {HEADLINE.split(' ').map((word, i) => (
+              <motion.span
+                key={`${word}-${i}`}
+                className="mr-[0.24em] inline-block last:mr-0"
+                initial={{ opacity: 0, y: 26 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: duration.slower, ease: ease.out, delay: 0.35 + i * 0.07 }}
+              >
+                {word}
+              </motion.span>
+            ))}
+          </h1>
 
-        <motion.h1
-          variants={headlineContainer}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-wrap justify-center gap-x-3 font-serif text-[36px] font-bold leading-[1.08] tracking-tight text-white md:text-[64px]"
-        >
-          {HEADLINE.split(' ').map((word, i) => (
-            <motion.span key={i} variants={wordVariant} className="inline-block">
-              {word}
-            </motion.span>
-          ))}
-        </motion.h1>
+          <motion.p {...intro(4)} className="ds-lede mt-7 text-white/75">
+            {t.hero.subheadline}
+          </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8, ease: 'easeOut' }}
-          className="mt-6 max-w-[640px] text-[18px] text-[#D4D4D4]"
-        >
-          {t.hero.subheadline}
-        </motion.p>
+          <motion.div {...intro(5)} className="mt-10 flex flex-wrap items-center gap-3">
+            <Button to="projects" size="lg">
+              {t.hero.ctaPrimary}
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover/btn:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </Button>
+            <Button to="contact" variant="ghost" size="lg">
+              {t.hero.ctaSecondary}
+            </Button>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.1, ease: 'easeOut' }}
-          className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:mt-10"
-        >
-          <ScrollLink
-            to="about"
-            smooth
-            duration={500}
-            offset={-80}
-            className="cursor-pointer rounded-lg bg-vertex-blue px-8 py-4 font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:bg-vertex-blue-light"
+          <motion.dl
+            {...intro(6)}
+            className="mt-14 grid max-w-lg grid-cols-3 gap-6 border-t border-white/[0.12] pt-7"
           >
-            {t.hero.ctaPrimary}
-          </ScrollLink>
-          <ScrollLink
-            to="join"
-            smooth
-            duration={500}
-            offset={-80}
-            className="cursor-pointer rounded-lg border border-vertex-gold px-8 py-4 font-medium text-vertex-gold-light transition-all duration-200 hover:scale-[1.02] hover:bg-vertex-gold hover:text-vertex-navy"
-          >
-            {t.hero.ctaSecondary}
-          </ScrollLink>
-        </motion.div>
+            {t.hero.facts.map((fact) => (
+              <div key={fact.label} className="flex flex-col justify-start gap-2">
+                {/* dt precedes dd in the DOM (valid <dl>); order puts the value on top. */}
+                <dt className="ds-label order-2 leading-snug text-white/60">{fact.label}</dt>
+                <dd className="order-1 font-serif text-[1.75rem] font-bold leading-none tracking-[-0.02em] text-white sm:text-[2rem]">
+                  {fact.value}
+                </dd>
+              </div>
+            ))}
+          </motion.dl>
+
+          {/* Institutional badges sit inline on smaller screens. */}
+          <motion.div {...intro(7)} className="mt-10 flex flex-wrap gap-3 lg:hidden">
+            {badges}
+          </motion.div>
+        </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.4, ease: 'easeOut' }}
-          className="mt-10 flex w-full max-w-2xl items-stretch justify-center border-t border-white/10 pt-6 sm:mt-14 sm:pt-8"
+          {...intro(7)}
+          className="absolute bottom-28 right-8 hidden flex-col items-end gap-3 lg:flex xl:right-12"
         >
-          {t.hero.stats.map((stat, i) => (
-            <div key={stat.label} className="flex items-stretch">
-              {i > 0 && (
-                <span
-                  className="mx-3 hidden w-px shrink-0 self-stretch bg-gradient-to-b from-transparent via-vertex-gold/40 to-transparent sm:mx-5 sm:block"
-                  aria-hidden="true"
-                />
-              )}
-              <StatCounter target={stat.target} label={stat.label} delay={i * 0.15} live={i === 1} />
-            </div>
-          ))}
+          {badges}
         </motion.div>
       </div>
 
-      <ScrollLink
+      <SectionLink
         to="about"
-        smooth
-        duration={500}
-        offset={-80}
         aria-label={t.hero.scrollAria}
-        className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 cursor-pointer text-vertex-gold-light"
+        className="absolute bottom-6 left-1/2 hidden h-11 w-11 -translate-x-1/2 items-center justify-center rounded-ds-pill text-white/60 transition-colors duration-200 hover:text-white lg:flex"
       >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        <motion.span
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+          className="flex"
         >
-          <ChevronDown size={26} />
-        </motion.div>
-      </ScrollLink>
-
-      <SectionDivider color="#F8FAFC" />
+          <ChevronDown className="h-5 w-5" aria-hidden="true" />
+        </motion.span>
+      </SectionLink>
     </section>
   )
 }

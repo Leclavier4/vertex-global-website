@@ -1,8 +1,13 @@
-import { Link as ScrollLink } from 'react-scroll'
 import { Link as RouterLink } from 'react-router-dom'
-import { Mail, Phone } from 'lucide-react'
+import { ArrowUpRight, Lock, Mail, MapPin, Phone } from 'lucide-react'
 import { VertexWordmark } from './VertexMark'
+import SectionLink from './ui/SectionLink'
 import { useLanguage } from '../i18n/LanguageContext'
+
+const CONTACT_EMAIL = 'vertexglos@gmail.com'
+const PHONE_DISPLAY = '+229 01 47 33 36 16'
+const PHONE_HREF = 'tel:+2290147333616'
+const FASTGARAGE_URL = 'https://www.fastgarage-vg.com/'
 
 const socialIconProps = {
   viewBox: '0 0 24 24',
@@ -12,6 +17,7 @@ const socialIconProps = {
   strokeLinecap: 'round',
   strokeLinejoin: 'round',
   className: 'h-[18px] w-[18px]',
+  'aria-hidden': true,
 }
 
 function LinkedInIcon() {
@@ -60,155 +66,124 @@ const SOCIALS = [
   { label: 'TikTok', Icon: TikTokIcon, href: 'https://www.tiktok.com/@vertexg5?_r=1&_t=ZS-98Ng32lAu07' },
 ]
 
+const linkClass =
+  'inline-flex min-h-[36px] items-center text-[0.9375rem] text-white/65 transition-colors duration-200 hover:text-white'
+
+function ColumnTitle({ children }) {
+  return <h2 className="ds-label mb-4 text-white">{children}</h2>
+}
+
 export default function Footer() {
   const { t } = useLanguage()
   const year = new Date().getFullYear()
 
-  const navItems = [
-    { label: t.nav.accueil, to: 'hero' },
-    { label: t.nav.about, to: 'about' },
-    { label: t.nav.poles, to: 'poles' },
-    { label: t.nav.ventures, to: 'ventures' },
-    { label: t.nav.fastgarage, to: 'fastgarage' },
-    { label: t.nav.join, to: 'join' },
-    { label: t.nav.contact, to: 'contact' },
-  ]
-
   return (
-    <footer className="bg-vertex-navy pt-20">
-      <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-16">
-        <div className="grid grid-cols-1 gap-12 pb-16 md:grid-cols-2 lg:grid-cols-[1.3fr_0.85fr_1fr_1fr]">
-          <div>
-            <VertexWordmark theme="light" markSize={40} />
-            <p className="mt-5 max-w-xs text-[14.5px] text-[#9CA9BA]">{t.footer.tagline}</p>
-            <p className="mt-2 text-[14.5px] text-[#9CA9BA]">
-              {t.footer.location} · {year}
-            </p>
-
-            <div className="mt-4 flex flex-col gap-2.5">
-              <a
-                href="mailto:vertexglos@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2.5 text-[14.5px] text-[#9CA9BA] transition-colors duration-200 hover:text-vertex-gold-light"
-              >
-                <Mail className="h-4 w-4 shrink-0 text-vertex-gold" />
-                vertexglos@gmail.com
-              </a>
-              <a
-                href="https://wa.me/2290147333616"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2.5 text-[14.5px] text-[#9CA9BA] transition-colors duration-200 hover:text-vertex-gold-light"
-              >
-                <Phone className="h-4 w-4 shrink-0 text-vertex-gold" />
-                +229 01 47 33 36 16
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.15em] text-white">{t.footer.navTitle}</h4>
-            <nav className="flex flex-col gap-1" aria-label={t.nav.ariaFooter}>
-              {navItems.map((item) => (
-                <ScrollLink
-                  key={item.to}
-                  to={item.to}
-                  smooth
-                  duration={500}
-                  offset={-80}
-                  className="block w-fit cursor-pointer border-l-2 border-transparent py-1 pl-0 text-[14.5px] text-[#B8C4D4] transition-all duration-200 hover:border-vertex-gold hover:pl-3 hover:text-vertex-gold-light"
-                >
-                  {item.label}
-                </ScrollLink>
-              ))}
-            </nav>
-          </div>
-
-          <div>
-            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.15em] text-white">{t.footer.venturesTitle}</h4>
-            <div className="flex flex-col gap-5">
-              {t.ventures.items.map((venture) => {
-                const isFastGarage = venture.name === 'FastGarage'
-                return isFastGarage ? (
-                  <div key={venture.name} className="group flex flex-col gap-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[14.5px] font-medium text-white">{venture.name}</span>
-                      <span className="animate-pulse rounded-full bg-vertex-orange px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
-                        Live
-                      </span>
-                    </div>
-                    <a
-                      href="https://www.fastgarage-vg.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex w-fit items-center gap-1 text-xs text-[#8493A6] transition-colors duration-200 hover:text-vertex-gold-light"
-                    >
-                      fastgarage-vg.com
-                      <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
-                      </svg>
-                    </a>
-                  </div>
-                ) : (
-                  <span key={venture.name} className="w-fit text-[14.5px] text-[#B8C4D4]">
-                    {venture.name} <span className="text-[#8493A6]">· {venture.status}</span>
-                  </span>
-                )
-              })}
-            </div>
-          </div>
-
-          <div>
-            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.15em] text-white">{t.footer.socialTitle}</h4>
-            <div className="flex gap-3.5">
-              {SOCIALS.map(({ label, Icon, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${t.footer.socialAria} ${label}`}
-                  className="flex h-[42px] w-[42px] items-center justify-center rounded-full border border-white/20 text-[#B8C4D4] transition-all duration-200 hover:-translate-y-1 hover:border-vertex-gold-light hover:text-vertex-gold-light"
-                >
-                  <Icon />
+    <footer className="theme-dark mt-4 rounded-t-ds-xl bg-midnight pt-20 lg:rounded-t-ds-2xl">
+      <div className="ds-container">
+        <div className="grid gap-12 pb-16 sm:grid-cols-2 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <VertexWordmark theme="light" markSize={38} />
+            <p className="mt-5 max-w-xs text-[0.9375rem] leading-relaxed text-white/65">{t.footer.tagline}</p>
+            <ul className="mt-6 space-y-3">
+              <li>
+                <a href={`mailto:${CONTACT_EMAIL}`} className={`${linkClass} gap-2.5`}>
+                  <Mail className="h-4 w-4 shrink-0 text-vertex-gold-light" aria-hidden="true" />
+                  {CONTACT_EMAIL}
                 </a>
+              </li>
+              <li>
+                <a href={PHONE_HREF} className={`${linkClass} gap-2.5`}>
+                  <Phone className="h-4 w-4 shrink-0 text-vertex-gold-light" aria-hidden="true" />
+                  {PHONE_DISPLAY}
+                </a>
+              </li>
+              <li className="flex items-start gap-2.5 text-[0.9375rem] text-white/65">
+                <MapPin className="mt-1 h-4 w-4 shrink-0 text-vertex-gold-light" aria-hidden="true" />
+                {t.contact.panel.address}
+              </li>
+            </ul>
+          </div>
+
+          <nav aria-label={t.footer.projectsTitle} className="lg:col-span-2">
+            <ColumnTitle>{t.footer.projectsTitle}</ColumnTitle>
+            <ul className="space-y-2">
+              <li>
+                <a href={FASTGARAGE_URL} target="_blank" rel="noopener noreferrer" className={`${linkClass} gap-2`}>
+                  FastGarage
+                  <span className="live-dot" aria-hidden="true" />
+                  <span className="sr-only">({t.footer.live})</span>
+                  <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                </a>
+              </li>
+              <li className="inline-flex min-h-[36px] items-center gap-2 text-[0.9375rem] text-white/65">
+                SGMP
+                <span className="ds-label inline-flex items-center gap-1 whitespace-nowrap rounded-ds-pill border border-white/15 px-2 py-0.5 text-white/60">
+                  <Lock className="h-3 w-3" aria-hidden="true" />
+                  {t.footer.privateB2B}
+                </span>
+              </li>
+            </ul>
+          </nav>
+
+          <nav aria-label={t.footer.servicesTitle} className="lg:col-span-3">
+            <ColumnTitle>{t.footer.servicesTitle}</ColumnTitle>
+            <ul className="space-y-1">
+              {t.services.items.map((service) => (
+                <li key={service.title}>
+                  <SectionLink to="services" className={linkClass}>
+                    {service.title}
+                  </SectionLink>
+                </li>
               ))}
-            </div>
+            </ul>
+          </nav>
+
+          <div className="lg:col-span-3">
+            <ColumnTitle>{t.footer.socialTitle}</ColumnTitle>
+            <ul className="flex flex-wrap gap-3">
+              {SOCIALS.map(({ label, Icon, href }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${t.footer.socialAria} ${label}`}
+                    className="glass-surface specular-edge spring-press flex h-11 w-11 items-center justify-center rounded-ds-pill border border-white/15 bg-white/[0.04] text-white/75 hover:-translate-y-0.5 hover:border-vertex-gold-light hover:text-vertex-gold-light active:scale-[0.94]"
+                  >
+                    <Icon />
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <SectionLink to="contact" className="mt-8 inline-flex min-h-[44px] items-center gap-1.5 text-sm font-semibold text-vertex-gold-light hover:text-white">
+              {t.nav.cta}
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </SectionLink>
           </div>
         </div>
 
-        <div className="mb-6 mt-12 border-t border-vertex-gold/30" />
-
-        <div className="flex flex-col items-center gap-2 pb-4 text-center">
-          <p className="text-[10.5px] leading-relaxed text-[#4B5563]">
-            VERTEX GLOBAL SARL · RCCM : RB/ABC/26 B 12287 · IFU : 3202687473834 · Abomey-Calavi, Bénin
+        <div className="border-t border-white/10 py-8 text-center">
+          <p className="ds-data text-[0.6875rem] leading-relaxed text-white/50">
+            VERTEX GLOBAL SARL · RCCM&nbsp;: RB/ABC/26 B 12287 · IFU&nbsp;: 3202687473834 · Abomey-Calavi, Bénin
           </p>
-
-          <p className="max-w-2xl text-[10.5px] leading-relaxed text-[#4B5563]">
+          <p className="mx-auto mt-2 max-w-2xl text-[0.6875rem] leading-relaxed text-white/50">
             {
-              "Activités : Développement de solutions numériques et technologiques, services informatiques, conseil, formation, intermédiation et mise en relation, coopération internationale, et toutes opérations s'y rattachant."
+              "Activités : Développement de solutions numériques et technologiques, services informatiques, conseil, formation, intermédiation et mise en relation, coopération internationale, et toutes opérations s'y rattachant."
             }
           </p>
-
           <RouterLink
             to="/legal"
-            className="mt-1 text-[11px] text-[#6B7280] underline underline-offset-2 transition-colors duration-200 hover:text-vertex-gold-light"
+            className="mt-4 inline-flex min-h-[44px] items-center text-xs text-white/65 underline decoration-white/25 underline-offset-4 transition-colors duration-200 hover:text-white hover:decoration-white"
           >
-            Mentions légales &amp; Politique de confidentialité
+            {t.footer.legalLink}
           </RouterLink>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">
-          <p className="text-[13.5px] text-[#8493A6]">
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/10 py-7 sm:flex-row">
+          <p className="text-[0.8125rem] text-white/50">
             © {year} Vertex Global SARL. {t.footer.rights}
           </p>
-          <p className="font-serif text-[15px] italic text-vertex-gold">{t.footer.motto}</p>
+          <p className="font-serif text-[0.9375rem] font-semibold italic text-vertex-gold-light">{t.footer.motto}</p>
         </div>
       </div>
     </footer>

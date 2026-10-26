@@ -1,81 +1,89 @@
-import { motion } from 'framer-motion'
-import { Search, Layers, TrendingUp } from 'lucide-react'
-import SectionDivider from './SectionDivider'
+import { FileCheck2, Layers, Route } from 'lucide-react'
+import SectionHeader from './ui/SectionHeader'
+import Reveal from './ui/Reveal'
 import { useLanguage } from '../i18n/LanguageContext'
 
-const ICONS = [Search, Layers, TrendingUp]
-
-const cardVariants = {
-  hidden: { opacity: 0, x: 40 },
-  visible: (i) => ({
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6, delay: i * 0.15, ease: 'easeOut' },
-  }),
-}
+const PROBLEM_ICONS = [Route, FileCheck2, Layers]
 
 export default function About() {
   const { t } = useLanguage()
+  const { about } = t
 
   return (
-    <section id="about" className="relative overflow-hidden bg-vertex-off-white py-20 md:py-28 lg:py-32">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-4 md:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20 lg:px-16">
-        {/* Left column */}
-        <motion.div
-          className="relative"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+    <section id="about" aria-labelledby="about-title" className="ds-section bg-background">
+      <div className="ds-container">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <SectionHeader id="about-title" eyebrow={about.eyebrow} title={about.title} />
+          </div>
+          <div className="space-y-5 lg:col-span-7 lg:pt-10">
+            {about.paragraphs.map((paragraph, i) => (
+              <Reveal as="p" step={i} key={paragraph} className="ds-body text-text-secondary">
+                {paragraph}
+              </Reveal>
+            ))}
+          </div>
+        </div>
+
+        <Reveal
+          as="figure"
+          className="relative mt-20 overflow-hidden rounded-ds-xl border border-border bg-surface px-7 py-10 sm:px-12 sm:py-14"
         >
           <span
-            className="pointer-events-none absolute -top-12 -left-2 select-none font-serif text-[140px] font-bold leading-none text-vertex-navy/5 sm:text-[180px]"
             aria-hidden="true"
-          >
-            01
-          </span>
+            className="absolute inset-y-10 left-0 w-[3px] rounded-r-full bg-gradient-to-b from-vertex-gold-light via-vertex-gold to-transparent sm:inset-y-14"
+          />
+          <figcaption className="ds-eyebrow text-primary">{about.missionEyebrow}</figcaption>
+          <blockquote className="ds-quote mt-5 max-w-4xl text-balance text-text-primary">
+            <p>{about.mission}</p>
+          </blockquote>
+        </Reveal>
 
-          <div className="relative">
-            <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-vertex-gold">
-              {t.about.label}
-            </span>
-            <h2 className="mt-4 font-serif text-[28px] font-bold leading-tight tracking-tight text-vertex-navy md:text-[42px]">
-              {t.about.title}
-            </h2>
-            <div className="my-7 h-0.5 w-20 rounded bg-gradient-to-r from-vertex-gold to-vertex-gold-light" />
-
-            <div className="space-y-5 text-[16px] leading-[1.7] text-vertex-text-mid">
-              {t.about.paragraphs.map((paragraph, i) => (
-                <p key={i}>{paragraph}</p>
-              ))}
-            </div>
+        <div className="mt-20 grid gap-14 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <Reveal as="h3" className="ds-h3 text-text-primary">
+              {about.problemsTitle}
+            </Reveal>
+            <ul className="mt-8 space-y-4">
+              {about.problems.map((problem, i) => {
+                const Icon = PROBLEM_ICONS[i]
+                return (
+                  <Reveal as="li" step={i} key={problem.title}>
+                    <div className="flex gap-5 rounded-ds-lg border border-border bg-white p-5 transition-colors duration-300 hover:border-primary/30 sm:p-6">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-ds-md bg-surface text-primary ring-1 ring-border">
+                        <Icon className="h-5 w-5" aria-hidden="true" strokeWidth={1.75} />
+                      </span>
+                      <div>
+                        <p className="font-serif text-[1.0625rem] font-semibold text-text-primary">{problem.title}</p>
+                        <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-text-secondary">{problem.text}</p>
+                      </div>
+                    </div>
+                  </Reveal>
+                )
+              })}
+            </ul>
           </div>
-        </motion.div>
 
-        {/* Right column: process cards */}
-        <div className="flex flex-col gap-5">
-          {t.about.cards.map(({ step, text }, i) => {
-            const Icon = ICONS[i]
-            return (
-              <motion.div
-                key={step}
-                custom={i}
-                variants={cardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-100px' }}
-                className="rounded-2xl border-t-[3px] border-vertex-gold bg-vertex-navy p-8 transition-transform duration-300 hover:-translate-y-1.5"
-              >
-                <Icon className="mb-4 h-8 w-8 text-vertex-gold-light" strokeWidth={1.7} />
-                <h3 className="mb-2 font-serif text-xl font-bold text-white">{step}</h3>
-                <p className="text-[15px] leading-[1.6] text-[#C7CFDA]">{text}</p>
-              </motion.div>
-            )
-          })}
+          <div>
+            <Reveal as="h3" className="ds-h3 text-text-primary">
+              {about.processTitle}
+            </Reveal>
+            <ol className="relative mt-8 space-y-8 before:absolute before:bottom-4 before:left-[21px] before:top-4 before:w-px before:bg-gradient-to-b before:from-border before:via-primary/30 before:to-border">
+              {about.steps.map((item, i) => (
+                <Reveal as="li" step={i} key={item.step} className="relative flex gap-5">
+                  <span className="ds-data relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-ds-pill border border-border bg-white text-sm font-medium text-primary shadow-ds-sm">
+                    {item.step}
+                  </span>
+                  <div className="pt-1.5">
+                    <p className="font-serif text-[1.0625rem] font-semibold text-text-primary">{item.title}</p>
+                    <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-text-secondary">{item.text}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
-
-      <SectionDivider color="#0D1F35" />
     </section>
   )
 }

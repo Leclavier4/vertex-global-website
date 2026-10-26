@@ -1,26 +1,23 @@
-import { Link } from 'react-router-dom'
 import { Home } from 'lucide-react'
 import { VertexMark } from '../components/VertexMark'
+import Button from '../components/ui/Button'
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-vertex-navy px-4 py-20 text-center">
-      <VertexMark size={64} />
+    <main id="main" className="theme-dark relative isolate flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-midnight px-5 py-20 text-center">
+      <div aria-hidden="true" className="oil-slick-fallback absolute inset-0 -z-10 opacity-60" />
+      <div aria-hidden="true" className="iridescent-halo absolute left-1/2 top-1/2 -z-10 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full" />
 
-      <p className="mt-8 font-serif text-[110px] font-bold leading-none text-vertex-gold md:text-[150px]">
+      <VertexMark size={56} />
+      <p className="mt-10 font-serif text-[clamp(6rem,4rem+10vw,10rem)] font-extrabold leading-none tracking-[-0.04em] text-vertex-gold">
         404
       </p>
-
-      <h1 className="mt-4 font-serif text-2xl font-bold text-white md:text-3xl">{"Cette page n'existe pas."}</h1>
-      <p className="mt-3 max-w-md text-[15.5px] text-white/70">Mais nos ventures, elles, existent bien.</p>
-
-      <Link
-        to="/"
-        className="mt-10 inline-flex items-center gap-2 rounded-lg bg-vertex-gold px-8 py-4 font-semibold text-vertex-navy transition-all duration-200 hover:scale-[1.02] hover:bg-vertex-gold-light"
-      >
+      <h1 className="ds-h2 mt-6 text-white">{"Cette page n'existe pas."}</h1>
+      <p className="ds-lede mt-3 text-white/70">Mais nos ventures, elles, existent bien.</p>
+      <Button route="/" size="lg" className="mt-10">
         <Home className="h-4 w-4" aria-hidden="true" />
         {"Retour à l'accueil"}
-      </Link>
-    </div>
+      </Button>
+    </main>
   )
 }

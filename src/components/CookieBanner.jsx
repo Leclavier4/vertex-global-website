@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { Cookie } from 'lucide-react'
+import { useLanguage } from '../i18n/LanguageContext'
+import { duration, ease } from '../lib/motion'
 
 const CONSENT_KEY = 'vg_cookie_consent'
 
 export default function CookieBanner() {
+  const { t } = useLanguage()
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     try {
-      const stored = window.localStorage.getItem(CONSENT_KEY)
-      if (!stored) setVisible(true)
+      if (!window.localStorage.getItem(CONSENT_KEY)) setVisible(true)
     } catch {
-      // localStorage unavailable (private browsing, blocked storage, etc.) —
-      // fail silently rather than blocking the page on a banner that can't persist anyway.
+      // Storage unavailable (private mode, blocked): never block the page on
+      // a banner whose choice couldn't be persisted anyway.
     }
   }, [])
 
@@ -21,7 +24,7 @@ export default function CookieBanner() {
     try {
       window.localStorage.setItem(CONSENT_KEY, value)
     } catch {
-      // ignore — the banner still closes for this visit even if we can't persist the choice
+      // The banner still closes for this visit.
     }
     setVisible(false)
   }
@@ -30,39 +33,41 @@ export default function CookieBanner() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ y: '100%', opacity: 0 }}
+          initial={{ y: 32, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: '100%', opacity: 0 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          role="dialog"
-          aria-live="polite"
-          aria-label="Consentement aux cookies"
-          className="fixed inset-x-0 bottom-0 z-[70] bg-vertex-navy px-5 py-5 shadow-[0_-10px_30px_-10px_rgba(0,0,0,0.45)] sm:px-8"
+          exit={{ y: 32, opacity: 0 }}
+          transition={{ duration: duration.slow, ease: ease.out }}
+          role="region"
+          aria-label={t.cookie.aria}
+          className="theme-dark fixed inset-x-3 bottom-3 z-[70] sm:inset-x-0 sm:bottom-6 sm:mx-auto sm:w-[min(40rem,calc(100%-3rem))]"
         >
-          <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 sm:flex-row sm:justify-between">
-            <p className="text-center text-[13.5px] leading-relaxed text-white/85 sm:text-left">
-              {"Nous utilisons des cookies essentiels au bon fonctionnement du site. Aucune donnée personnelle n'est revendue ni partagée avec des tiers."}{' '}
-              <Link
-                to="/legal"
-                className="text-vertex-gold-light underline decoration-transparent underline-offset-2 transition-colors duration-200 hover:decoration-vertex-gold-light"
-              >
-                En savoir plus
-              </Link>
-            </p>
-            <div className="flex shrink-0 gap-3">
+          <div className="glass-surface specular-edge flex flex-col gap-5 rounded-ds-xl border border-white/15 bg-navy/90 p-5 shadow-[0_24px_60px_-24px_rgba(8,20,38,0.9)] sm:flex-row sm:items-center sm:p-6">
+            <div className="flex gap-3">
+              <Cookie className="mt-0.5 h-5 w-5 shrink-0 text-vertex-gold-light" aria-hidden="true" />
+              <p className="text-sm leading-relaxed text-white/80">
+                {t.cookie.text}{' '}
+                <Link
+                  to="/legal"
+                  className="font-medium text-vertex-gold-light underline decoration-vertex-gold-light/40 underline-offset-2 hover:decoration-vertex-gold-light"
+                >
+                  {t.cookie.more}
+                </Link>
+              </p>
+            </div>
+            <div className="flex shrink-0 gap-2.5">
               <button
                 type="button"
                 onClick={() => choose('refused')}
-                className="rounded-lg bg-gray-500 px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-gray-400"
+                className="spring-press min-h-[44px] flex-1 rounded-ds-md border border-white/20 bg-white/[0.06] px-5 text-sm font-semibold text-white hover:bg-white/[0.12] active:scale-[0.96] sm:flex-none"
               >
-                Refuser
+                {t.cookie.refuse}
               </button>
               <button
                 type="button"
                 onClick={() => choose('accepted')}
-                className="rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-emerald-500"
+                className="spring-press min-h-[44px] flex-1 rounded-ds-md bg-emerald-700 px-5 text-sm font-semibold text-white hover:bg-emerald-800 active:scale-[0.96] sm:flex-none"
               >
-                Accepter
+                {t.cookie.accept}
               </button>
             </div>
           </div>

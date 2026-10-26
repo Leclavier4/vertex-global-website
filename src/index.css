@@ -4,95 +4,217 @@
 
 html {
   scroll-behavior: smooth;
+  /* clip, not hidden: hidden would turn the element into a scroll
+     container and break position: sticky. hidden is the legacy fallback. */
   overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
-  /* Keeps plain #anchor jumps (e.g. footer/nav "#contact" links) clear of the
-     fixed navbar; react-scroll links already handle their own offset in JS. */
+  /* Keeps #anchor jumps and scrollIntoView clear of the fixed navbar. */
   scroll-padding-top: 6rem;
 }
 
 body {
   margin: 0;
   width: 100%;
-  background-color: #F8FAFC;
+  background-color: #ffffff;
   color: #111827;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* clip, not hidden: hidden would turn the element into a scroll
+     container and break position: sticky. hidden is the legacy fallback. */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 ::selection {
-  background: #B7862C;
-  color: #FFFFFF;
+  background: #b7862c;
+  color: #ffffff;
 }
 
-/* small-caps helper used for labels */
-.small-caps {
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-}
-
-/* focus ring, consistent with brand gold */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid #D4A84B;
+/* ---------------------------------------------------------------------
+   Focus: WCAG 2.2 focus appearance. Electric blue on light surfaces
+   (5.2:1 on white), brand gold inside .theme-dark surfaces (7.5:1 on navy).
+   --------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid #2563eb;
   outline-offset: 3px;
 }
-
-/* hero logo: continuous breathing glow, isolated from Framer's entrance transform */
-@keyframes logoGlow {
-  0%, 100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 10px rgba(183, 134, 44, 0.35));
-  }
-  50% {
-    transform: scale(1.02);
-    filter: drop-shadow(0 0 30px rgba(212, 168, 75, 0.6));
-  }
-}
-.animate-logo-glow {
-  animation: logoGlow 3.6s ease-in-out infinite;
+.theme-dark :focus-visible {
+  outline-color: #d4a84b;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+/* ---------------------------------------------------------------------
+   Design system: typography scale (see DESIGN_SYSTEM.md)
+   --------------------------------------------------------------------- */
+@layer components {
+  .ds-container {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8;
+  }
+
+  .ds-section {
+    padding-block: clamp(4.5rem, 2.5rem + 6vw, 8rem);
+  }
+
+  .ds-display {
+    font-family: theme('fontFamily.serif');
+    font-weight: 700;
+    font-size: clamp(2.5rem, 1.55rem + 4vw, 4.75rem);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+  }
+
+  .ds-h2 {
+    font-family: theme('fontFamily.serif');
+    font-weight: 700;
+    font-size: clamp(1.875rem, 1.35rem + 2.1vw, 2.875rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .ds-h3 {
+    font-family: theme('fontFamily.serif');
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  .ds-quote {
+    font-family: theme('fontFamily.serif');
+    font-weight: 600;
+    font-size: clamp(1.375rem, 1.05rem + 1.3vw, 2rem);
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+  }
+
+  .ds-eyebrow {
+    font-family: theme('fontFamily.label');
+    font-weight: 500;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .ds-label {
+    font-family: theme('fontFamily.label');
+    font-weight: 500;
+    font-size: 0.6875rem;
+    line-height: 1.4;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .ds-lede {
+    font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+    line-height: 1.65;
+    max-width: 62ch;
+  }
+
+  .ds-body {
+    font-size: 1rem;
+    line-height: 1.75;
+    max-width: 65ch;
+  }
+
+  .ds-data {
+    font-family: theme('fontFamily.label');
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
   }
 }
 
 /* ---------------------------------------------------------------------
-   Design system — Liquid Glass & Spring Physics
-   Reusable building blocks for interactive surfaces (buttons, cards, the
-   scrolled navbar). Opt in per component with these classes rather than
-   redeclaring the same blur/highlight/easing values inline everywhere.
+   Liquid Glass & Spring Physics
    --------------------------------------------------------------------- */
 
-/* Frosted surface: backdrop blur + saturation boost + a hairline specular
-   highlight along the top edge, as if light were catching a liquid film. */
+/* Frosted surface. Pair with a border utility: .specular-edge then lights
+   the top edge like sun catching a liquid film, without touching
+   box-shadow (so elevation shadows can still be layered on). */
 .glass-surface {
   backdrop-filter: blur(20px) saturate(1.7);
   -webkit-backdrop-filter: blur(20px) saturate(1.7);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.specular-edge {
+  border-top-color: rgba(255, 255, 255, 0.35);
 }
 
-/* Spring-press: for buttons and other tappable elements. Pair with
-   `active:scale-[0.96]` (or .97) in the component's className — this class
-   only supplies the bounce-back easing/duration. */
+/* Spring-press: bounce-back easing for tappable elements. Pair with
+   active:scale-[0.96] in the component. */
 .spring-press {
-  transition-property: transform, box-shadow, background-color, border-color, color;
+  transition-property: transform, box-shadow, background-color, border-color, color, opacity;
   transition-duration: 320ms;
   transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Live indicator: a dot with an expanding halo. */
+.live-dot {
+  position: relative;
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #22c55e;
+}
+.live-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: liveHalo 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+@keyframes liveHalo {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+/* Static fallback behind the Oil Slick canvas: visible when WebGL is
+   unavailable, before the first frame, or if the context is lost. */
+.oil-slick-fallback {
+  background:
+    radial-gradient(55% 65% at 74% 42%, rgba(37, 99, 235, 0.5), transparent 70%),
+    radial-gradient(38% 48% at 86% 72%, rgba(139, 92, 246, 0.32), transparent 70%),
+    radial-gradient(32% 40% at 62% 18%, rgba(34, 211, 238, 0.26), transparent 70%),
+    linear-gradient(135deg, #081426 0%, #10233f 100%);
+}
+
+/* Small, decorative iridescent halo for secondary surfaces (CTA panel,
+   featured project). Pure CSS, far cheaper than a second WebGL context. */
+.iridescent-halo {
+  background: conic-gradient(from 210deg, #22d3ee, #2563eb, #8b5cf6, #22d3ee);
+  filter: blur(64px);
+  opacity: 0.28;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  transform: translateY(-160%);
+  transition: transform 200ms ease;
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .spring-press {
-    transition-duration: 0.001ms;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

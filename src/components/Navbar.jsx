@@ -1,27 +1,29 @@
-import { useEffect, useState, useCallback } from 'react'
-import { Link as ScrollLink } from 'react-scroll'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { VertexWordmark } from './VertexMark'
+import SectionLink from './ui/SectionLink'
+import Button from './ui/Button'
+import LanguageSwitcher from './LanguageSwitcher'
+import { duration, ease } from '../lib/motion'
 import { useLanguage } from '../i18n/LanguageContext'
 
-const SECTION_IDS = ['hero', 'about', 'poles', 'ventures', 'fastgarage', 'join']
+const SECTION_IDS = ['about', 'services', 'projects', 'contact']
 
+/* Tracks which section sits under the upper third of the viewport. */
 function useActiveSection(ids) {
-  const [active, setActive] = useState(ids[0])
+  const [active, setActive] = useState(null)
 
   useEffect(() => {
     const elements = ids.map((id) => document.getElementById(id)).filter(Boolean)
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) setActive(entry.target.id)
         })
       },
-      { rootMargin: '-40% 0px -55% 0px', threshold: 0 },
+      { rootMargin: '-35% 0px -60% 0px', threshold: 0 },
     )
-
     elements.forEach((el) => observer.observe(el))
     return () => observer.disconnect()
   }, [ids])
@@ -29,154 +31,154 @@ function useActiveSection(ids) {
   return active
 }
 
-const mobileMenuVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
-  exit: { opacity: 0 },
-}
-
-const mobileLinkVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 10 },
-}
-
 export default function Navbar() {
   const { t } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const active = useActiveSection(SECTION_IDS)
+  const toggleRef = useRef(null)
+  const firstMobileLinkRef = useRef(null)
 
-  const navItems = [
-    { label: t.nav.accueil, to: 'hero' },
-    { label: t.nav.about, to: 'about' },
-    { label: t.nav.poles, to: 'poles' },
-    { label: t.nav.ventures, to: 'ventures' },
-    { label: t.nav.fastgarage, to: 'fastgarage' },
-    { label: t.nav.join, to: 'join' },
-    { label: t.nav.contact, to: 'contact' },
+  const items = [
+    { id: 'about', label: t.nav.about },
+    { id: 'services', label: t.nav.services },
+    { id: 'projects', label: t.nav.projects, live: true },
+    { id: 'contact', label: t.nav.contact },
   ]
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80)
+    const onScroll = () => setScrolled(window.scrollY > 24)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Scroll lock + Escape to close + focus management for the mobile menu.
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    if (!menuOpen) return undefined
+    const root = document.documentElement
+    root.style.overflow = 'hidden'
+    firstMobileLinkRef.current?.focus()
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false)
+        toggleRef.current?.focus()
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      root.style.overflow = ''
+      window.removeEventListener('keydown', onKeyDown)
+    }
   }, [menuOpen])
 
-  const closeMenu = useCallback(() => setMenuOpen(false), [])
+  // Unlock scrolling synchronously before the smooth scroll starts.
+  const closeMenu = useCallback(() => {
+    document.documentElement.style.overflow = ''
+    setMenuOpen(false)
+  }, [])
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,box-shadow] duration-[400ms] ease-in-out ${
-        scrolled ? 'bg-vertex-navy/95 backdrop-blur-md shadow-lg shadow-black/20' : 'bg-transparent'
-      }`}
-    >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 md:px-8 lg:px-16">
-        <ScrollLink to="hero" smooth duration={500} offset={-80} className="cursor-pointer">
-          <VertexWordmark theme="light" markSize={40} />
-        </ScrollLink>
+    <header className="theme-dark fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4">
+      <div
+        className={`mx-auto flex items-center justify-between gap-4 border transition-[max-width,height,padding,background-color,border-color,box-shadow] duration-500 ease-out-expo ${
+          scrolled
+            ? 'glass-surface specular-edge h-14 max-w-[1040px] rounded-ds-pill border-white/10 bg-navy/90 pl-4 pr-2 shadow-[0_16px_40px_-18px_rgba(8,20,38,0.7)]'
+            : 'h-16 max-w-content rounded-ds-pill border-transparent bg-transparent px-2 sm:px-4'
+        }`}
+      >
+        <SectionLink to="top" aria-label={t.nav.home} className="flex min-h-[44px] items-center rounded-ds-sm">
+          <VertexWordmark theme="light" markSize={scrolled ? 30 : 34} />
+        </SectionLink>
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-8 md:flex" aria-label={t.nav.ariaMain}>
-          {navItems.map((item) => (
-            <ScrollLink
-              key={item.to}
-              to={item.to}
-              smooth
-              duration={500}
-              offset={-80}
-              className={`relative cursor-pointer pb-1 font-sans text-[13px] transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-left after:bg-vertex-gold-light after:transition-transform after:duration-200 after:ease-out ${
-                active === item.to
-                  ? 'text-vertex-gold-light after:scale-x-100'
-                  : 'text-vertex-text-muted after:scale-x-0 hover:text-vertex-gold-light hover:after:scale-x-100'
-              }`}
-            >
-              {item.label}
-              {item.to === 'ventures' && (
-                <motion.span
-                  aria-hidden="true"
-                  animate={{ scale: [1, 1.3, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                  className="ml-1.5 inline-block h-1.5 w-1.5 rounded-full bg-vertex-orange align-middle"
-                />
-              )}
-            </ScrollLink>
-          ))}
-
-          <ScrollLink
-            to="join"
-            smooth
-            duration={500}
-            offset={-80}
-            className="cursor-pointer rounded-lg border border-vertex-gold px-5 py-2.5 font-sans text-[13px] font-semibold text-vertex-gold-light transition-all duration-200 hover:bg-vertex-gold hover:text-vertex-navy"
-          >
-            {t.nav.cta}
-          </ScrollLink>
+        <nav className="hidden items-center gap-1 md:flex" aria-label={t.nav.ariaMain}>
+          {items.map((item) => {
+            const isActive = active === item.id
+            return (
+              <SectionLink
+                key={item.id}
+                to={item.id}
+                aria-current={isActive ? 'true' : undefined}
+                className={`relative inline-flex min-h-[44px] items-center gap-2 rounded-ds-pill px-4 text-sm font-medium transition-colors duration-200 ${
+                  isActive ? 'text-white' : 'text-white/70 hover:text-white'
+                }`}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-active-pill"
+                    className="absolute inset-y-2 inset-x-1 -z-10 rounded-ds-pill bg-white/10"
+                    transition={{ duration: duration.base, ease: ease.out }}
+                  />
+                )}
+                {item.label}
+                {item.live && (
+                  <span className="live-dot" role="img" aria-label={t.nav.liveLabel} title={t.nav.liveLabel} />
+                )}
+              </SectionLink>
+            )
+          })}
         </nav>
 
-        {/* Mobile hamburger */}
-        <button
-          type="button"
-          className="z-50 text-white md:hidden"
-          aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((v) => !v)}
-        >
-          {menuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        <div className="flex items-center gap-2">
+          <Button to="contact" size="sm" className="hidden md:inline-flex">
+            {t.nav.cta}
+          </Button>
+
+          <button
+            ref={toggleRef}
+            type="button"
+            className="spring-press inline-flex h-11 w-11 items-center justify-center rounded-ds-pill text-white active:scale-[0.94] md:hidden"
+            aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile full-screen overlay */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-vertex-navy md:hidden"
-            variants={mobileMenuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
+            id="mobile-menu"
+            className="glass-surface fixed inset-0 -z-10 flex flex-col bg-midnight/95 px-6 pb-10 pt-28 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: duration.base, ease: ease.out }}
           >
-            {navItems.map((item) => (
-              <motion.div key={item.to} variants={mobileLinkVariants}>
-                <ScrollLink
-                  to={item.to}
-                  smooth
-                  duration={500}
-                  offset={-80}
-                  onClick={closeMenu}
-                  className={`cursor-pointer font-serif text-2xl transition-colors duration-200 ${
-                    active === item.to ? 'text-vertex-gold-light' : 'text-white hover:text-vertex-gold-light'
-                  }`}
+            <nav aria-label={t.nav.ariaMobile} className="flex flex-col">
+              {items.map((item, i) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: duration.slow, ease: ease.out, delay: 0.05 + i * 0.06 }}
                 >
-                  {item.label}
-                  {item.to === 'ventures' && (
-                    <motion.span
-                      aria-hidden="true"
-                      animate={{ scale: [1, 1.3, 1] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                      className="ml-2 inline-block h-2 w-2 rounded-full bg-vertex-orange align-middle"
-                    />
-                  )}
-                </ScrollLink>
-              </motion.div>
-            ))}
-            <motion.div variants={mobileLinkVariants}>
-              <ScrollLink
-                to="join"
-                smooth
-                duration={500}
-                offset={-80}
-                onClick={closeMenu}
-                className="cursor-pointer rounded-lg border border-vertex-gold px-6 py-3 font-sans text-sm font-semibold text-vertex-gold-light"
-              >
+                  <SectionLink
+                    ref={i === 0 ? firstMobileLinkRef : undefined}
+                    to={item.id}
+                    onNavigate={closeMenu}
+                    className="flex min-h-[56px] items-center justify-between border-b border-white/10 font-serif text-[1.75rem] font-semibold tracking-[-0.02em] text-white"
+                  >
+                    {item.label}
+                    {item.live && <span className="live-dot" aria-hidden="true" />}
+                  </SectionLink>
+                </motion.div>
+              ))}
+            </nav>
+            <motion.div
+              className="mt-auto flex flex-col gap-5"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: duration.slow, ease: ease.out, delay: 0.3 }}
+            >
+              <LanguageSwitcher floating={false} />
+              <Button to="contact" size="lg" onNavigate={closeMenu} className="w-full">
                 {t.nav.cta}
-              </ScrollLink>
+              </Button>
             </motion.div>
           </motion.div>
         )}

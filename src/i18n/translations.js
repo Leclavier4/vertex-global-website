@@ -1,162 +1,227 @@
+/* All copy is factual and sourced from the client brief: no invented
+   figures, clients, partners or testimonials, no em dashes. Section ids
+   referenced by navigation: about, services, projects, institution, contact. */
+
 export const translations = {
   fr: {
     meta: {
       description:
-        'Vertex Global est un Venture Studio africain basé au Bénin. Nous identifions des problèmes réels et construisons des solutions numériques à impact. RCCM : RB/ABC/26 B 12287',
+        // Kept identical to the static <meta> in index.html (required wording).
+        'Vertex Global est un Venture Studio africain basé au Bénin. Nous identifions des problèmes réels et construisons des solutions numériques à impact. RCCM : RB/ABC/26 B 12287',
     },
 
+    skipLink: 'Aller au contenu principal',
+
     nav: {
-      accueil: 'Accueil',
+      home: 'Vertex Global, retour en haut de page',
       about: 'À propos',
-      poles: 'Pôles',
-      ventures: 'Ventures',
-      fastgarage: 'FastGarage',
-      join: 'Rejoindre',
+      services: 'Services',
+      projects: 'Projets',
       contact: 'Contact',
-      cta: "Rejoindre l'aventure",
+      cta: 'Nous contacter',
+      liveLabel: 'Un produit en production',
       ariaMain: 'Navigation principale',
-      ariaFooter: 'Navigation du pied de page',
+      ariaMobile: 'Navigation mobile',
       openMenu: 'Ouvrir le menu',
       closeMenu: 'Fermer le menu',
     },
 
     hero: {
+      eyebrow: 'Venture studio numérique · Bénin',
       subheadline:
-        "Vertex Global est un Venture Studio africain. Nous identifions de vrais problèmes, construisons des solutions numériques adaptées, et les déployons à l'échelle du continent.",
-      ctaPrimary: 'Découvrir notre modèle',
-      ctaSecondary: "Rejoindre l'aventure",
-      scrollAria: 'Défiler vers la section suivante',
-      stats: [
-        { target: 6, label: "Pôles d'innovation" },
-        { target: 1, label: 'Venture en production' },
-        { target: 10, label: 'Principes fondateurs' },
+        "Vertex Global conçoit, structure et développe des solutions numériques pour l'Afrique de l'Ouest et au-delà. Une SARL de droit béninois, fondée en 2026 à Abomey-Calavi.",
+      ctaPrimary: 'Découvrir nos projets',
+      ctaSecondary: 'Nous contacter',
+      facts: [
+        { value: '2026', label: 'Année de création' },
+        { value: '1', label: 'Produit en production' },
+        { value: '6', label: "Domaines d'expertise" },
       ],
+      badgeLegalLabel: 'SARL immatriculée',
+      badgeLegalValue: 'RCCM RB/ABC/26 B 12287',
+      badgeLiveLabel: 'En production',
+      badgeLiveValue: 'FastGarage',
+      scrollAria: 'Défiler vers la section À propos',
     },
 
     about: {
-      label: 'À propos',
-      title: 'Nous ne construisons pas des applications.',
+      eyebrow: 'À propos',
+      title: 'Nous construisons des systèmes.',
       paragraphs: [
-        "Nous construisons des systèmes. Là où une startup classique mise tout sur un seul produit, Vertex Global bâtit un portefeuille de ventures numériques capables de résoudre des problèmes réels à l'échelle africaine.",
-        "Notre avantage compétitif n'est pas la technologie. C'est notre compréhension intime des défis locaux et notre capacité à y répondre avec méthode et discipline.",
-        "Ce modèle n'est pas une mode, c'est une nécessité de timing. L'Afrique de l'Ouest connaît aujourd'hui la convergence rare d'une adoption massive du mobile money, d'une jeunesse ultra-connectée et d'infrastructures encore à construire. Cela laisse un espace immense pour des solutions pensées depuis le terrain plutôt qu'importées d'ailleurs. Cotonou est notre point de départ précisément parce que le Bénin concentre ces conditions à échelle humaine, assez petite pour valider vite, assez connectée à la sous-région pour scaler naturellement.",
+        "Vertex Global est un venture studio numérique de droit béninois. Là où une startup classique mise tout sur un seul produit, nous bâtissons et accompagnons des solutions capables de résoudre des problèmes réels à l'échelle africaine.",
+        "Notre avantage n'est pas la technologie en elle-même. C'est notre compréhension intime des défis locaux et notre capacité à y répondre avec méthode et discipline.",
+        "Ce modèle n'est pas une mode, c'est une question de timing. L'Afrique de l'Ouest connaît une convergence rare : adoption massive du mobile money, jeunesse connectée, infrastructures encore à construire. Le Grand Cotonou est notre point de départ précisément parce que le Bénin réunit ces conditions à échelle humaine : assez compact pour valider vite, assez connecté à la sous-région pour grandir naturellement.",
       ],
-      cards: [
+      missionEyebrow: 'Notre mission',
+      mission:
+        "Construire l'infrastructure numérique africaine : des outils pensés depuis le terrain, pour les secteurs que les solutions importées servent mal.",
+      problemsTitle: 'Les problèmes que nous attaquons',
+      problems: [
         {
-          step: '01 / Identifier',
-          text: "Nous partons d'un problème réel, observable, documenté sur le terrain. Jamais d'une idée technologique.",
+          title: 'Mobilité',
+          text: "En cas de panne, trouver une aide fiable dépend encore du carnet de contacts. Il manque une mise en relation rapide et vérifiée.",
         },
         {
-          step: '02 / Construire',
+          title: 'Marchés publics',
+          text: "Constituer un dossier d'appel d'offres reste lourd, manuel et exposé aux erreurs de procédure.",
+        },
+        {
+          title: 'Outils adaptés',
+          text: 'Trop de solutions sont importées sans tenir compte des usages locaux : mobile money, connectivité variable, multilinguisme.',
+        },
+      ],
+      processTitle: 'Notre méthode',
+      steps: [
+        {
+          step: '01',
+          title: 'Identifier',
+          text: "Nous partons d'un problème réel, observé et documenté sur le terrain. Jamais d'une idée technologique.",
+        },
+        {
+          step: '02',
+          title: 'Construire',
           text: 'Une solution numérique adaptée aux réalités locales, développée après validation de la demande.',
         },
         {
-          step: '03 / Scaler',
+          step: '03',
+          title: 'Grandir',
           text: "Du Bénin à l'Afrique de l'Ouest. De l'Afrique de l'Ouest au monde.",
         },
       ],
     },
 
-    poles: {
-      label: "Nos pôles d'activité",
-      titleWhite: '6 domaines.',
-      titleGold: '1 vision.',
+    services: {
+      eyebrow: 'Services',
+      title: 'Six domaines, une même exigence.',
+      lede: 'Des compétences opérationnelles, mises au service de nos propres projets comme de ceux de nos clients et partenaires.',
       items: [
         {
-          name: 'EnergyTech',
-          description: "Gestion intelligente de l'énergie, recharge prépayée, services aux opérateurs et usagers.",
-        },
-        {
-          name: 'HealthTech',
-          description: "Accès aux soins, dossiers médicaux numériques, systèmes d'urgence et télémédecine.",
-        },
-        {
-          name: 'Cybersécurité',
-          description: 'Audits, sensibilisation, protection et résilience numérique pour entreprises et institutions.',
-        },
-        {
-          name: 'Intelligence Artificielle',
-          description: "Automatisation intelligente et systèmes d'aide à la décision adaptés au contexte africain.",
-        },
-        {
-          name: 'TourismTech',
-          description: "Plateformes numériques de valorisation des destinations et de l'économie touristique africaine.",
-        },
-        {
-          name: 'Ventures Émergentes',
-          description: "Nouvelles opportunités identifiées par la recherche et l'observation continue du marché.",
-        },
-      ],
-    },
-
-    ventures: {
-      label: 'En construction, en production',
-      title: 'Nos ventures',
-      quoteOpen: '« ',
-      quoteClose: ' »',
-      items: [
-        {
-          name: 'FastGarage',
-          pole: 'MobilityTech',
-          status: 'Actif',
+          title: 'Développement web et mobile',
           description:
-            'Plateforme de mise en relation pour assistance dépannage automobile au Bénin. Trouvez un garage certifié ou un dépanneur en quelques secondes, depuis votre téléphone.',
-          problem:
-            'Vous êtes en panne sur la route. Vous ne savez pas qui appeler ni où aller. Chaque minute compte.',
-          solution:
-            'Mise en relation immédiate avec des garages et dépanneurs certifiés au Bénin, disponible 24h/24.',
-          tooltip: 'FastGarage · En production · fastgarage-vg.com',
-          cta: { label: 'Voir FastGarage →', href: 'https://www.fastgarage-vg.com/' },
+            'Applications web et mobiles sur mesure, APIs REST et architectures conçues pour durer.',
+          tags: ['Laravel', 'React', 'APIs REST'],
+        },
+        {
+          title: 'Cybersécurité et conformité',
+          description:
+            'Audit de sécurité, mise en conformité APDP Bénin et RGPD, sensibilisation et formation des équipes.',
+          tags: ['APDP', 'RGPD', 'Audit'],
+        },
+        {
+          title: 'Traduction et localisation',
+          description:
+            "Traduction, interprétation et localisation entre l'Afrique de l'Ouest et le monde arabe.",
+          tags: ['Français', 'Anglais', 'Arabe'],
+        },
+        {
+          title: 'Stratégie et accompagnement',
+          description:
+            "Structuration juridique de startups, roadmap produit, levée de fonds early-stage et acquisition d'opportunités d'études, en Afrique et hors du continent.",
+          tags: ['Structuration', 'Roadmap', 'Études'],
+        },
+        {
+          title: 'Formation tech',
+          description: 'Formations en cybersécurité, développement web et intelligence artificielle appliquée.',
+          tags: ['Cybersécurité', 'Web', 'IA appliquée'],
+        },
+        {
+          title: 'Marchés publics',
+          description:
+            'Constitution de dossiers, bordereaux de prix et accompagnement selon les procédures HCPC du Bénin.',
+          tags: ['Dossiers', 'Bordereaux', 'HCPC'],
         },
       ],
-      teaserText:
-        '3+ ventures en conception, réparties entre HealthTech, Cybersécurité et Intelligence Artificielle, actuellement en phase de validation terrain avant premier déploiement.',
-      teaserCta: 'Rejoignez-nous pour découvrir la suite',
     },
 
-    fastgarage: {
-      label: 'VENTURE ACTIVE',
-      title: 'FastGarage',
-      tagline: 'Le dépannage automobile au Bénin, réinventé.',
-      body: [
-        "FastGarage connecte instantanément les automobilistes en panne avec des garages et dépanneurs certifiés au Bénin. Plus besoin de chercher dans vos contacts ou d'attendre qu'un ami connaisse quelqu'un.",
-        'Disponible 24h/24, depuis n\'importe quel téléphone. Géolocalisation intégrée. Devis en temps réel. Paiement sécurisé.',
-      ],
-      features: [
-        { title: 'Géolocalisation', desc: 'Trouvez le garage le plus proche' },
-        { title: 'Réponse rapide', desc: 'Dépanneur en route en moins de 10 min' },
-        { title: 'Certifié', desc: 'Garages vérifiés et notés par la communauté' },
-      ],
-      cta: 'Visiter FastGarage',
-      mapLabel: 'Cotonou, Bénin',
-      available: 'Disponible',
-      callCta: 'Appeler un dépanneur',
-    },
-
-    join: {
-      title: 'Rejoindre Vertex Global',
-      subtitle: 'Nous cherchons des personnes qui partagent une vision long terme.',
-      groupCard: {
-        badge: 'Niveau 1',
-        title: 'Partenaire du Groupe',
-        desc: "Vous rejoignez le groupe dans sa globalité : vision stratégique, gouvernance et accès à l'ensemble du portefeuille de ventures.",
-        points: [
-          "Accès à l'ensemble du portefeuille",
-          'Enveloppe interne de 60% des revenus',
-          'Participation aux décisions stratégiques',
+    projects: {
+      eyebrow: 'Projets',
+      title: 'Ce que nous construisons.',
+      lede: 'Un produit en production, un outil métier finalisé. Nous ne présentons que ce qui existe réellement.',
+      fastgarage: {
+        status: 'En production',
+        name: 'FastGarage',
+        tagline: 'Le dépannage automobile, enfin organisé.',
+        description:
+          'Plateforme de mise en relation entre automobilistes en panne et mécaniciens agréés géolocalisés, avec dispatch en temps réel et paiement Mobile Money intégré.',
+        features: [
+          'Mécaniciens agréés, géolocalisés',
+          'Dispatch en temps réel',
+          'Paiement Mobile Money intégré',
+          'Dossier APDP déposé, récépissé reçu',
         ],
-        cta: 'En savoir plus →',
+        cta: 'Visiter fastgarage-vg.com',
+        ctaAria: 'Visiter le site de FastGarage (nouvel onglet)',
+        mock: {
+          location: 'Votre position',
+          request: 'Demande de dépannage',
+          mechanic: 'Mécanicien agréé',
+          status: 'En route',
+          pay: 'Payer par Mobile Money',
+        },
       },
-      projectCard: {
-        badge: 'Niveau 2',
-        title: 'Partenaire de Projet',
-        desc: "Vous rejoignez une venture spécifique, en tant qu'investisseur financier ou contributeur opérationnel, avec un retour aligné sur sa performance.",
-        points: [
-          'Investisseur financier ou contributeur',
-          'Enveloppe projet de 40% des revenus',
-          'Part progressive selon ancienneté',
-        ],
-        cta: 'En savoir plus →',
+      sgmp: {
+        status: 'Finalisé · B2B privé',
+        name: 'SGMP',
+        fullName: 'Système de Gestion des Marchés Publics',
+        description:
+          "Solution de gestion des appels d'offres et des dossiers de candidature, structurée selon les procédures HCPC du Bénin.",
+        tags: ['Laravel 11', 'Procédures HCPC', 'Usage interne'],
+        note: 'Produit privé, présenté sur demande.',
+        cta: 'Demander une présentation',
+      },
+    },
+
+    institution: {
+      eyebrow: 'Cadre institutionnel',
+      title: 'Une structure légalement établie.',
+      lede: 'Vertex Global SARL est immatriculée au Registre du Commerce et du Crédit Mobilier du Bénin.',
+      items: [
+        { label: 'Forme juridique', value: 'SARL de droit béninois' },
+        { label: 'RCCM', value: 'RB/ABC/26 B 12287' },
+        { label: 'IFU', value: '3202687473834' },
+        { label: 'Siège social', value: 'Îlot 104, Quartier Zopah, Abomey-Calavi, Bénin' },
+        { label: 'Création', value: '2026' },
+        { label: 'Protection des données', value: 'Dossier APDP déposé pour FastGarage, récépissé reçu' },
+      ],
+      legalLink: 'Consulter les mentions légales',
+    },
+
+    contact: {
+      eyebrow: 'Contact',
+      title: 'Parlons de votre projet.',
+      lede: 'Client, partenaire, investisseur ou entrepreneur : décrivez votre besoin, nous revenons vers vous rapidement.',
+      panel: {
+        title: 'Écrivez-nous directement',
+        emailLabel: 'Email',
+        phoneLabel: 'Téléphone et WhatsApp',
+        addressLabel: 'Siège social',
+        address: 'Îlot 104, Quartier Zopah, Abomey-Calavi, Bénin',
+      },
+      partners: {
+        title: 'Rejoindre le studio',
+        lede: 'Nous cherchons des personnes qui partagent une vision long terme.',
+        groupCard: {
+          badge: 'Niveau 1',
+          title: 'Partenaire du Groupe',
+          desc: "Vous rejoignez le groupe dans sa globalité : vision stratégique, gouvernance et accès à l'ensemble du portefeuille.",
+          points: [
+            "Accès à l'ensemble du portefeuille",
+            'Enveloppe interne de 60% des revenus',
+            'Participation aux décisions stratégiques',
+          ],
+          cta: 'Nous écrire',
+        },
+        projectCard: {
+          badge: 'Niveau 2',
+          title: 'Partenaire de Projet',
+          desc: "Vous rejoignez un projet spécifique, en tant qu'investisseur financier ou contributeur opérationnel, avec un retour aligné sur sa performance.",
+          points: [
+            'Investisseur financier ou contributeur',
+            'Enveloppe projet de 40% des revenus',
+            'Part progressive selon ancienneté',
+          ],
+          cta: 'Nous écrire',
+        },
       },
       form: {
         title: 'Une question ? Écrivez-nous.',
@@ -165,9 +230,9 @@ export const translations = {
         namePlaceholder: 'Votre nom complet',
         emailLabel: 'Email',
         emailPlaceholder: 'vous@exemple.com',
-        typeLabel: 'Type de collaboration',
+        typeLabel: 'Type de demande',
         typePlaceholder: 'Choisissez une option',
-        types: ['Partenaire Interne', 'Investisseur Financier', 'Contributeur Opérationnel', 'Autre'],
+        types: ['Demande de service', 'Partenaire Interne', 'Investisseur Financier', 'Contributeur Opérationnel', 'Autre'],
         messageLabel: 'Message',
         messagePlaceholder: 'Parlez-nous de votre projet...',
         channelLabel: 'Canal de contact préféré',
@@ -175,41 +240,55 @@ export const translations = {
         channelWhatsapp: 'WhatsApp',
         helperEmail: 'Votre email sera pré-rempli et ouvert dans votre messagerie.',
         helperWhatsapp: 'Votre message sera pré-rempli et envoyé directement sur WhatsApp.',
+        requiredHint: 'Tous les champs sont obligatoires.',
         submitEmail: 'Envoyer par Email',
         submitWhatsapp: 'Envoyer via WhatsApp',
         submitLoading: 'Préparation…',
         errors: {
           name: 'Merci de renseigner votre nom.',
           email: 'Merci de renseigner une adresse email valide.',
-          type: 'Merci de sélectionner un type de collaboration.',
+          type: 'Merci de sélectionner un type de demande.',
           message: 'Merci de rédiger un message.',
           messageMinLength: 'Votre message doit contenir au moins 20 caractères.',
           channel: 'Merci de choisir un canal de contact.',
         },
         rateLimited: 'Trop de tentatives. Merci de réessayer dans quelques minutes.',
-        successEmail: 'Email préparé. Envoyez-le depuis votre messagerie.',
+        successEmail: 'Email préparé. Envoyez-le depuis votre messagerie pour finaliser.',
         successWhatsapp: 'Message WhatsApp préparé. Envoyez-le pour finaliser.',
-        mailSubjectPrefix: 'Collaboration Vertex Global',
+        mailSubjectPrefix: 'Contact Vertex Global',
         mailFieldLabels: { name: 'Nom', email: 'Email', type: 'Type', message: 'Message' },
         waGreeting: 'Bonjour Vertex Global 👋',
-        waFieldLabels: { name: 'Nom', type: 'Type de collaboration', message: 'Message' },
+        waFieldLabels: { name: 'Nom', type: 'Type de demande', message: 'Message' },
       },
     },
 
     footer: {
-      tagline: "Groupe d'innovation technologique africain.",
-      location: "Cotonou, Bénin · Afrique de l'Ouest",
-      navTitle: 'Navigation',
-      venturesTitle: 'Nos ventures',
+      tagline: 'Venture studio numérique de droit béninois.',
+      projectsTitle: 'Projets',
+      servicesTitle: 'Services',
+      contactTitle: 'Contact',
       socialTitle: 'Suivez-nous',
+      privateB2B: 'Privé B2B',
+      live: 'En ligne',
       rights: 'Tous droits réservés.',
       motto: "Bâtir l'Afrique. Build the world.",
       socialAria: 'Vertex Global sur',
+      legalLink: 'Mentions légales et politique de confidentialité',
+    },
+
+    cookie: {
+      aria: 'Consentement aux cookies',
+      text: "Nous utilisons uniquement les cookies et le stockage local nécessaires au fonctionnement du site. Aucune donnée personnelle n'est revendue ni partagée avec des tiers.",
+      more: 'En savoir plus',
+      accept: 'Accepter',
+      refuse: 'Refuser',
     },
 
     errorBoundary: "Une erreur est survenue lors de l'affichage de cette section.",
+    scrollToTop: 'Retourner en haut de la page',
 
     languageSwitcher: {
+      group: 'Langue du site',
       toFrench: 'Passer en français',
       toEnglish: 'Switch to English',
     },
@@ -218,159 +297,219 @@ export const translations = {
   en: {
     meta: {
       description:
-        'Vertex Global: African technology innovation group. Venture studio based in Cotonou, Bénin. FastGarage in production. EnergyTech, HealthTech, Cybersecurity, AI, TourismTech.',
+        'Vertex Global is a Beninese digital venture studio founded in 2026 in Abomey-Calavi. Web and mobile development, cybersecurity, translation, advisory, tech training and public procurement. RCCM: RB/ABC/26 B 12287',
     },
 
+    skipLink: 'Skip to main content',
+
     nav: {
-      accueil: 'Home',
+      home: 'Vertex Global, back to top',
       about: 'About',
-      poles: 'Hubs',
-      ventures: 'Ventures',
-      fastgarage: 'FastGarage',
-      join: 'Join',
+      services: 'Services',
+      projects: 'Projects',
       contact: 'Contact',
-      cta: 'Join the journey',
+      cta: 'Contact us',
+      liveLabel: 'One product live',
       ariaMain: 'Main navigation',
-      ariaFooter: 'Footer navigation',
+      ariaMobile: 'Mobile navigation',
       openMenu: 'Open menu',
       closeMenu: 'Close menu',
     },
 
     hero: {
+      eyebrow: 'Digital venture studio · Bénin',
       subheadline:
-        'Vertex Global is an African venture studio. We identify real problems, build tech solutions that fit, and deploy them at continental scale.',
-      ctaPrimary: 'Discover our model',
-      ctaSecondary: 'Join the journey',
-      scrollAria: 'Scroll to next section',
-      stats: [
-        { target: 6, label: 'Innovation hubs' },
-        { target: 1, label: 'Venture in production' },
-        { target: 10, label: 'Founding principles' },
+        'Vertex Global designs, structures and builds digital solutions for West Africa and beyond. A Beninese limited liability company (SARL), founded in 2026 in Abomey-Calavi.',
+      ctaPrimary: 'Explore our projects',
+      ctaSecondary: 'Contact us',
+      facts: [
+        { value: '2026', label: 'Year founded' },
+        { value: '1', label: 'Product in production' },
+        { value: '6', label: 'Areas of expertise' },
       ],
+      badgeLegalLabel: 'Registered SARL',
+      badgeLegalValue: 'RCCM RB/ABC/26 B 12287',
+      badgeLiveLabel: 'In production',
+      badgeLiveValue: 'FastGarage',
+      scrollAria: 'Scroll to the About section',
     },
 
     about: {
-      label: 'About',
-      title: "We don't build apps.",
+      eyebrow: 'About',
+      title: 'We build systems.',
       paragraphs: [
-        'We build systems. Where a classic startup bets everything on a single product, Vertex Global builds a portfolio of digital ventures designed to solve real problems at African scale.',
-        "Our edge isn't technology. It's an intimate understanding of local challenges, and the discipline to answer them with method rather than guesswork.",
-        "This model isn't a trend, it's a matter of timing. West Africa is living through a rare convergence: mass mobile money adoption, a hyper-connected youth, and infrastructure still being built. That leaves enormous room for solutions designed from the ground up rather than imported from elsewhere. Cotonou is our starting point precisely because Bénin holds these conditions at human scale: small enough to validate fast, connected enough to the region to scale naturally.",
+        'Vertex Global is a digital venture studio incorporated under Beninese law. Where a classic startup bets everything on a single product, we build and support solutions designed to solve real problems at African scale.',
+        "Our edge isn't technology for its own sake. It's an intimate understanding of local challenges, and the discipline to answer them with method rather than guesswork.",
+        "This model isn't a trend, it's a matter of timing. West Africa is living through a rare convergence: mass mobile money adoption, a connected youth, and infrastructure still being built. Greater Cotonou is our starting point precisely because Bénin holds these conditions at human scale: compact enough to validate fast, connected enough to the region to grow naturally.",
       ],
-      cards: [
+      missionEyebrow: 'Our mission',
+      mission:
+        "Build Africa's digital infrastructure: tools designed from the ground up, for the sectors imported solutions serve poorly.",
+      problemsTitle: 'The problems we tackle',
+      problems: [
         {
-          step: '01 / Identify',
+          title: 'Mobility',
+          text: 'When a car breaks down, finding reliable help still depends on who you know. Fast, verified matching is missing.',
+        },
+        {
+          title: 'Public procurement',
+          text: 'Putting together a tender file remains heavy, manual and exposed to procedural errors.',
+        },
+        {
+          title: 'Fit-for-purpose tools',
+          text: 'Too many solutions are imported without regard for local usage: mobile money, uneven connectivity, multilingual users.',
+        },
+      ],
+      processTitle: 'Our method',
+      steps: [
+        {
+          step: '01',
+          title: 'Identify',
           text: 'We start from a real problem: observed, documented, on the ground. Never from a technology looking for a use case.',
         },
         {
-          step: '02 / Build',
+          step: '02',
+          title: 'Build',
           text: 'A digital solution built for local realities, developed only after the demand is validated.',
         },
         {
-          step: '03 / Scale',
+          step: '03',
+          title: 'Grow',
           text: 'From Bénin to West Africa. From West Africa to the world.',
         },
       ],
     },
 
-    poles: {
-      label: 'Our focus areas',
-      titleWhite: '6 domains.',
-      titleGold: '1 vision.',
+    services: {
+      eyebrow: 'Services',
+      title: 'Six areas, one standard.',
+      lede: 'Hands-on expertise we apply to our own projects and to those of our clients and partners.',
       items: [
         {
-          name: 'EnergyTech',
-          description: 'Smart energy management, prepaid recharging, and services for operators and end users.',
+          title: 'Web and mobile development',
+          description: 'Custom web and mobile applications, REST APIs and architectures built to last.',
+          tags: ['Laravel', 'React', 'REST APIs'],
         },
         {
-          name: 'HealthTech',
-          description: 'Access to care, digital medical records, emergency systems, and telemedicine.',
-        },
-        {
-          name: 'Cybersecurity',
-          description: 'Audits, awareness training, protection, and digital resilience for businesses and institutions.',
-        },
-        {
-          name: 'Artificial Intelligence',
-          description: 'Intelligent automation and decision-support systems built for the African context.',
-        },
-        {
-          name: 'TourismTech',
-          description: "Digital platforms that showcase African destinations and power the continent's tourism economy.",
-        },
-        {
-          name: 'Emerging Ventures',
-          description: 'New opportunities surfaced through research and continuous market observation.',
-        },
-      ],
-    },
-
-    ventures: {
-      label: 'In progress, in production',
-      title: 'Our ventures',
-      quoteOpen: '“',
-      quoteClose: '”',
-      items: [
-        {
-          name: 'FastGarage',
-          pole: 'MobilityTech',
-          status: 'Active',
+          title: 'Cybersecurity and compliance',
           description:
-            "A matchmaking platform for roadside assistance in Bénin. Find a certified garage or tow truck in seconds, from your phone.",
-          problem: "You've broken down on the road. You don't know who to call or where to go. Every minute counts.",
-          solution: 'Instant matching with certified garages and towing services across Bénin, available 24/7.',
-          tooltip: 'FastGarage · In production · fastgarage-vg.com',
-          cta: { label: 'View FastGarage →', href: 'https://www.fastgarage-vg.com/' },
+            'Security audits, APDP Bénin and GDPR compliance, awareness programs and team training.',
+          tags: ['APDP', 'GDPR', 'Audit'],
+        },
+        {
+          title: 'Translation and localization',
+          description: 'Translation, interpreting and localization between West Africa and the Arab world.',
+          tags: ['French', 'English', 'Arabic'],
+        },
+        {
+          title: 'Strategy and advisory',
+          description:
+            'Startup legal structuring, product roadmaps, early-stage fundraising, and securing study opportunities in Africa and beyond.',
+          tags: ['Structuring', 'Roadmap', 'Studies'],
+        },
+        {
+          title: 'Tech training',
+          description: 'Training in cybersecurity, web development and applied artificial intelligence.',
+          tags: ['Cybersecurity', 'Web', 'Applied AI'],
+        },
+        {
+          title: 'Public procurement',
+          description:
+            "Tender file preparation, bills of quantities and guidance through Bénin's HCPC procedures.",
+          tags: ['Tender files', 'Pricing', 'HCPC'],
         },
       ],
-      teaserText:
-        "3+ ventures in the works, spanning HealthTech, Cybersecurity, and Artificial Intelligence, currently in field validation ahead of first deployment.",
-      teaserCta: "Join us to see what's next",
     },
 
-    fastgarage: {
-      label: 'ACTIVE VENTURE',
-      title: 'FastGarage',
-      tagline: 'Roadside assistance in Bénin, reinvented.',
-      body: [
-        "FastGarage instantly connects stranded drivers with certified garages and tow trucks across Bénin. No more scrolling through contacts or waiting for a friend to know someone.",
-        'Available 24/7, from any phone. Built-in geolocation. Real-time quotes. Secure payment.',
-      ],
-      features: [
-        { title: 'Geolocation', desc: 'Find the closest garage' },
-        { title: 'Fast response', desc: 'A tow truck en route in under 10 minutes' },
-        { title: 'Certified', desc: 'Garages verified and rated by the community' },
-      ],
-      cta: 'Visit FastGarage',
-      mapLabel: 'Cotonou, Bénin',
-      available: 'Available',
-      callCta: 'Call a tow truck',
-    },
-
-    join: {
-      title: 'Join Vertex Global',
-      subtitle: "We're looking for people who share a long-term vision.",
-      groupCard: {
-        badge: 'Level 1',
-        title: 'Group Partner',
-        desc: 'You join the group as a whole: strategic vision, governance, and access to the entire venture portfolio.',
-        points: [
-          'Access to the entire portfolio',
-          '60% internal revenue share',
-          'A voice in strategic decisions',
+    projects: {
+      eyebrow: 'Projects',
+      title: 'What we build.',
+      lede: 'One product in production, one finished business tool. We only show what actually exists.',
+      fastgarage: {
+        status: 'In production',
+        name: 'FastGarage',
+        tagline: 'Roadside assistance, finally organized.',
+        description:
+          'A platform connecting stranded drivers with geolocated, certified mechanics, with real-time dispatch and built-in Mobile Money payment.',
+        features: [
+          'Certified, geolocated mechanics',
+          'Real-time dispatch',
+          'Built-in Mobile Money payment',
+          'APDP filing submitted, receipt issued',
         ],
-        cta: 'Learn more →',
+        cta: 'Visit fastgarage-vg.com',
+        ctaAria: 'Visit the FastGarage website (opens in a new tab)',
+        mock: {
+          location: 'Your location',
+          request: 'Assistance request',
+          mechanic: 'Certified mechanic',
+          status: 'On the way',
+          pay: 'Pay with Mobile Money',
+        },
       },
-      projectCard: {
-        badge: 'Level 2',
-        title: 'Project Partner',
-        desc: 'You join one specific venture, as a financial investor or operational contributor, with returns tied to its performance.',
-        points: [
-          'Financial investor or contributor',
-          '40% project revenue share',
-          'Growing stake based on tenure',
-        ],
-        cta: 'Learn more →',
+      sgmp: {
+        status: 'Completed · Private B2B',
+        name: 'SGMP',
+        fullName: 'Public Procurement Management System',
+        description:
+          "A tool for managing tenders and bid files, structured around Bénin's HCPC procedures.",
+        tags: ['Laravel 11', 'HCPC procedures', 'Internal use'],
+        note: 'Private product, presented on request.',
+        cta: 'Request a presentation',
+      },
+    },
+
+    institution: {
+      eyebrow: 'Legal framework',
+      title: 'A legally established company.',
+      lede: "Vertex Global SARL is registered with Bénin's Trade and Personal Property Credit Register (RCCM).",
+      items: [
+        { label: 'Legal form', value: 'SARL (limited liability company) under Beninese law' },
+        { label: 'RCCM', value: 'RB/ABC/26 B 12287' },
+        { label: 'IFU (tax ID)', value: '3202687473834' },
+        { label: 'Registered office', value: 'Îlot 104, Quartier Zopah, Abomey-Calavi, Bénin' },
+        { label: 'Founded', value: '2026' },
+        { label: 'Data protection', value: 'APDP filing submitted for FastGarage, receipt issued' },
+      ],
+      legalLink: 'Read the legal notice',
+    },
+
+    contact: {
+      eyebrow: 'Contact',
+      title: "Let's talk about your project.",
+      lede: "Client, partner, investor or founder: tell us what you need and we'll get back to you quickly.",
+      panel: {
+        title: 'Write to us directly',
+        emailLabel: 'Email',
+        phoneLabel: 'Phone and WhatsApp',
+        addressLabel: 'Registered office',
+        address: 'Îlot 104, Quartier Zopah, Abomey-Calavi, Bénin',
+      },
+      partners: {
+        title: 'Join the studio',
+        lede: "We're looking for people who share a long-term vision.",
+        groupCard: {
+          badge: 'Level 1',
+          title: 'Group Partner',
+          desc: 'You join the group as a whole: strategic vision, governance, and access to the entire portfolio.',
+          points: [
+            'Access to the entire portfolio',
+            '60% internal revenue share',
+            'A voice in strategic decisions',
+          ],
+          cta: 'Write to us',
+        },
+        projectCard: {
+          badge: 'Level 2',
+          title: 'Project Partner',
+          desc: 'You join one specific project, as a financial investor or operational contributor, with returns tied to its performance.',
+          points: [
+            'Financial investor or contributor',
+            '40% project revenue share',
+            'Growing stake based on tenure',
+          ],
+          cta: 'Write to us',
+        },
       },
       form: {
         title: 'Have a question? Write to us.',
@@ -379,9 +518,9 @@ export const translations = {
         namePlaceholder: 'Your full name',
         emailLabel: 'Email',
         emailPlaceholder: 'you@example.com',
-        typeLabel: 'Collaboration type',
+        typeLabel: 'Request type',
         typePlaceholder: 'Choose an option',
-        types: ['Internal Partner', 'Financial Investor', 'Operational Contributor', 'Other'],
+        types: ['Service request', 'Internal Partner', 'Financial Investor', 'Operational Contributor', 'Other'],
         messageLabel: 'Message',
         messagePlaceholder: 'Tell us about your project...',
         channelLabel: 'Preferred contact channel',
@@ -389,41 +528,55 @@ export const translations = {
         channelWhatsapp: 'WhatsApp',
         helperEmail: 'Your email will be pre-filled and opened in your mail app.',
         helperWhatsapp: 'Your message will be pre-filled and sent directly on WhatsApp.',
+        requiredHint: 'All fields are required.',
         submitEmail: 'Send by Email',
         submitWhatsapp: 'Send via WhatsApp',
         submitLoading: 'Preparing…',
         errors: {
           name: 'Please enter your name.',
           email: 'Please enter a valid email address.',
-          type: 'Please select a collaboration type.',
+          type: 'Please select a request type.',
           message: 'Please write a message.',
           messageMinLength: 'Your message must be at least 20 characters long.',
           channel: 'Please choose a contact channel.',
         },
         rateLimited: 'Too many attempts. Please try again in a few minutes.',
-        successEmail: 'Email prepared. Send it from your mail app.',
+        successEmail: 'Email prepared. Send it from your mail app to finish.',
         successWhatsapp: 'WhatsApp message prepared. Send it to finish.',
-        mailSubjectPrefix: 'Vertex Global Collaboration',
+        mailSubjectPrefix: 'Vertex Global contact',
         mailFieldLabels: { name: 'Name', email: 'Email', type: 'Type', message: 'Message' },
         waGreeting: 'Hello Vertex Global 👋',
-        waFieldLabels: { name: 'Name', type: 'Collaboration type', message: 'Message' },
+        waFieldLabels: { name: 'Name', type: 'Request type', message: 'Message' },
       },
     },
 
     footer: {
-      tagline: 'African technology innovation group.',
-      location: 'Cotonou, Bénin · West Africa',
-      navTitle: 'Navigation',
-      venturesTitle: 'Our ventures',
+      tagline: 'Digital venture studio incorporated under Beninese law.',
+      projectsTitle: 'Projects',
+      servicesTitle: 'Services',
+      contactTitle: 'Contact',
       socialTitle: 'Follow us',
+      privateB2B: 'Private B2B',
+      live: 'Live',
       rights: 'All rights reserved.',
       motto: "Bâtir l'Afrique. Build the world.",
       socialAria: 'Vertex Global on',
+      legalLink: 'Legal notice and privacy policy',
+    },
+
+    cookie: {
+      aria: 'Cookie consent',
+      text: 'We only use the cookies and local storage the site needs to work. No personal data is sold or shared with third parties.',
+      more: 'Learn more',
+      accept: 'Accept',
+      refuse: 'Decline',
     },
 
     errorBoundary: 'An error occurred while displaying this section.',
+    scrollToTop: 'Back to top',
 
     languageSwitcher: {
+      group: 'Site language',
       toFrench: 'Passer en français',
       toEnglish: 'Switch to English',
     },
