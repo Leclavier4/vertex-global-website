@@ -6,7 +6,7 @@ const SECTIONS = [
   {
     heading: 'Éditeur du site',
     body: [
-      'Le site vertexglobal.vercel.app est édité par Vertex Global SARL, société de droit béninois.',
+      'Le site vertex-global-website.vercel.app est édité par Vertex Global SARL, société de droit béninois.',
       'RCCM : RB/ABC/26 B 12287',
       'IFU : 3202687473834',
       'Siège social : Îlot 104, Quartier Zopah, Abomey-Calavi, République du Bénin',
@@ -48,7 +48,7 @@ const SECTIONS = [
     body: ['Ce site est hébergé par Vercel Inc., 340 Pine Street, Suite 701, San Francisco, CA 94104, États-Unis.'],
   },
   {
-    heading: 'Contact — Délégué à la protection des données',
+    heading: 'Contact : Délégué à la protection des données',
     body: ['Pour toute question relative à vos données personnelles, écrivez-nous à : vertexglos@gmail.com'],
   },
 ]
@@ -98,7 +98,7 @@ export default function LegalPage() {
       </main>
 
       <footer className="border-t border-gray-200 py-8 text-center text-[13px] text-vertex-text-muted">
-        © {year} Vertex Global SARL — RCCM : RB/ABC/26 B 12287
+        © {year} Vertex Global SARL · RCCM : RB/ABC/26 B 12287
       </footer>
     </div>
   )

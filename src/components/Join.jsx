@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { AlertTriangle, Check, Loader2, Mail as MailIcon, MessageCircle } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
 
-const WHATSAPP_NUMBER = '22901473336116'
+const WHATSAPP_NUMBER = '2290147333616'
 const CONTACT_EMAIL = 'vertexglos@gmail.com'
 
 const MESSAGE_MIN_LENGTH = 20

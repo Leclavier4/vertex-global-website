@@ -104,8 +104,8 @@ export const translations = {
           problem:
             'Vous êtes en panne sur la route. Vous ne savez pas qui appeler ni où aller. Chaque minute compte.',
           solution:
-            'Mise en relation immédiate avec des garages et dépanneurs certifiés au Bénin — disponible 24h/24.',
-          tooltip: 'FastGarage — En production · fastgarage-vg.com',
+            'Mise en relation immédiate avec des garages et dépanneurs certifiés au Bénin, disponible 24h/24.',
+          tooltip: 'FastGarage · En production · fastgarage-vg.com',
           cta: { label: 'Voir FastGarage →', href: 'https://www.fastgarage-vg.com/' },
         },
       ],
@@ -187,8 +187,8 @@ export const translations = {
           channel: 'Merci de choisir un canal de contact.',
         },
         rateLimited: 'Trop de tentatives. Merci de réessayer dans quelques minutes.',
-        successEmail: 'Email préparé — envoyez-le depuis votre messagerie.',
-        successWhatsapp: 'Message WhatsApp préparé — envoyez-le pour finaliser.',
+        successEmail: 'Email préparé. Envoyez-le depuis votre messagerie.',
+        successWhatsapp: 'Message WhatsApp préparé. Envoyez-le pour finaliser.',
         mailSubjectPrefix: 'Collaboration Vertex Global',
         mailFieldLabels: { name: 'Nom', email: 'Email', type: 'Type', message: 'Message' },
         waGreeting: 'Bonjour Vertex Global 👋',
@@ -218,7 +218,7 @@ export const translations = {
   en: {
     meta: {
       description:
-        'Vertex Global — African technology innovation group. Venture studio based in Cotonou, Bénin. FastGarage in production. EnergyTech, HealthTech, Cybersecurity, AI, TourismTech.',
+        'Vertex Global: African technology innovation group. Venture studio based in Cotonou, Bénin. FastGarage in production. EnergyTech, HealthTech, Cybersecurity, AI, TourismTech.',
     },
 
     nav: {
@@ -318,8 +318,8 @@ export const translations = {
           description:
             "A matchmaking platform for roadside assistance in Bénin. Find a certified garage or tow truck in seconds, from your phone.",
           problem: "You've broken down on the road. You don't know who to call or where to go. Every minute counts.",
-          solution: 'Instant matching with certified garages and towing services across Bénin — available 24/7.',
-          tooltip: 'FastGarage — In production · fastgarage-vg.com',
+          solution: 'Instant matching with certified garages and towing services across Bénin, available 24/7.',
+          tooltip: 'FastGarage · In production · fastgarage-vg.com',
           cta: { label: 'View FastGarage →', href: 'https://www.fastgarage-vg.com/' },
         },
       ],
@@ -401,8 +401,8 @@ export const translations = {
           channel: 'Please choose a contact channel.',
         },
         rateLimited: 'Too many attempts. Please try again in a few minutes.',
-        successEmail: 'Email prepared — send it from your mail app.',
-        successWhatsapp: 'WhatsApp message prepared — send it to finish.',
+        successEmail: 'Email prepared. Send it from your mail app.',
+        successWhatsapp: 'WhatsApp message prepared. Send it to finish.',
         mailSubjectPrefix: 'Vertex Global Collaboration',
         mailFieldLabels: { name: 'Name', email: 'Email', type: 'Type', message: 'Message' },
         waGreeting: 'Hello Vertex Global 👋',

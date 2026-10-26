@@ -96,13 +96,13 @@ export default function Footer() {
                 vertexglos@gmail.com
               </a>
               <a
-                href="https://wa.me/22901473336116"
+                href="https://wa.me/2290147333616"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2.5 text-[14.5px] text-[#9CA9BA] transition-colors duration-200 hover:text-vertex-gold-light"
               >
                 <Phone className="h-4 w-4 shrink-0 text-vertex-gold" />
-                +229 01 47 33 36 116
+                +229 01 47 33 36 16
               </a>
             </div>
           </div>
@@ -157,7 +157,7 @@ export default function Footer() {
                   </div>
                 ) : (
                   <span key={venture.name} className="w-fit text-[14.5px] text-[#B8C4D4]">
-                    {venture.name} <span className="text-[#8493A6]">— {venture.status}</span>
+                    {venture.name} <span className="text-[#8493A6]">· {venture.status}</span>
                   </span>
                 )
               })}
@@ -187,7 +187,7 @@ export default function Footer() {
 
         <div className="flex flex-col items-center gap-2 pb-4 text-center">
           <p className="text-[10.5px] leading-relaxed text-[#4B5563]">
-            VERTEX GLOBAL SARL — RCCM : RB/ABC/26 B 12287 — IFU : 3202687473834 — Abomey-Calavi, Bénin
+            VERTEX GLOBAL SARL · RCCM : RB/ABC/26 B 12287 · IFU : 3202687473834 · Abomey-Calavi, Bénin
           </p>
 
           <p className="max-w-2xl text-[10.5px] leading-relaxed text-[#4B5563]">
