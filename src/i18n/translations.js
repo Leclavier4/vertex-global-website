@@ -110,7 +110,7 @@ export const translations = {
         {
           title: 'Traduction et localisation',
           description:
-            "Traduction, interprétation et localisation entre l'Afrique de l'Ouest et le monde arabe.",
+            "Traduction, interprétation et localisation pour relier l'Afrique au reste du monde, quels que soient vos marchés et vos interlocuteurs.",
           tags: ['Français', 'Anglais', 'Arabe'],
         },
         {
@@ -398,7 +398,8 @@ export const translations = {
         },
         {
           title: 'Translation and localization',
-          description: 'Translation, interpreting and localization between West Africa and the Arab world.',
+          description:
+            'Translation, interpreting and localization connecting Africa with the rest of the world, whatever your markets and counterparts.',
           tags: ['French', 'English', 'Arabic'],
         },
         {
